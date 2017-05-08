@@ -1,0 +1,21 @@
+{
+    "presets": [
+      ["env", {
+        "targets": {
+          "browsers": ["> 1% in US"],
+          "node": "current"
+        }
+      }],
+      "react"
+    ],
+    "plugins": [
+      "react-hot-loader/babel",
+      ["module-resolver", {
+        "root": ["./src", "."],
+        "alias": {
+          "api/fixtures": "./src/shared/api/fixtures",
+          "api/http": "./src/shared/api/http"
+        }
+      }]
+    ]
+}

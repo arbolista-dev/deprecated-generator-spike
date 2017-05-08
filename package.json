@@ -1,0 +1,23 @@
+{
+  "name": "generator-spike",
+  "version": "0.0.1",
+  "description": "Generator for React apps, reducers, components, and mock api.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist/generators"
+  ],
+  "keywords": [
+    "React",
+    "Redux",
+    "yeoman-generator",
+    "scaffloding"
+  ],
+  "author": "opportunities@arbolista.mx",
+  "dependencies": {
+    "yeoman": "^1.0.0"
+  },
+  "license": "MIT"
+}

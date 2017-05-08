@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <link href="<%= assetConfigs.app.css %>" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <div id="app"><%- content %></div>
+  <% if (config.get('wds')) { %>
+    <script src="http://localhost:<%= config.get('port') %>/webpack-dev-server.js"></script>
+  <% } %>
+  <script src="<%= assetConfigs.app.js %>"></script>
+</body>
+</html>
