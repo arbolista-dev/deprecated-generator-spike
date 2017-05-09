@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createHistory from 'history/createBrowserHistory';
-import createStore from 'shared/redux';
+import createStore from 'shared/redux/createStore';
 import App from 'shared/App';
 import storageEngine from './storageEngine';
 

@@ -1,6 +1,6 @@
-export default {
+module.exports = {
   port: 3000,
-  wds: false,
+  wds: true,
   error: {
     log: true
   },
@@ -10,10 +10,6 @@ export default {
   },
   server: {
     renderErrorStack: true
-  },
-  webpack: {
-    hash: false,
-    uglify: false
   },
   api: {
     fixtures: true

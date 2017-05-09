@@ -1,64 +1,66 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import fs from 'fs';
 import config from 'config';
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
+import configShim from 'client/lib/shimConfig';
 
-const plugins = config.get('webpack.uglify')
-    ? [new webpack.optimize.UglifyJsPlugin()]
-    : [
-      new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: outputChunkFilename })
-    ];
+const initializePlugins = () => {
+  const plugins = [];
+  /**
+   * When running webpack dev server, you don't want to hash
+   * file output.
+   */
+  let outputCssFilename;
+  let outputChunkFilename;
+  if (config.get('wds')) {
+    outputCssFilename = 'bundle.css';
+    outputChunkFilename = '[name].bundle.js';
+  } else {
+    outputCssFilename = 'bundle-[hash].css';
+    outputChunkFilename = '[name].bundle-[hash].js';
+    plugins.push(
+      new AssetsPlugin({
+        path: path.join(__dirname, '..', 'dist'),
+        prettyPrint: true
+      })
+    );
+  }
+  if (config.get('wds')) {
+    plugins.push(new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: outputChunkFilename }));
+  } else {
+    plugins.push(new webpack.optimize.UglifyJsPlugin());
+  }
 
-plugins.push(
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-      }
-    }),
-    new ExtractTextPlugin({
-      filename: outputCssFilename,
-      disable: false,
-      allChunks: true
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-);
-
-/**
- * When running webpack dev server, you don't want to hash
- * file output.
- */
-let outputJsFilename;
-let outputCss;
-let outputChunkFilename;
-if (config.get('wds')) {
-  outputJsFilename = 'bundle.min.js';
-  outputCssFilename = 'bundle.css';
-  outputChunkFilename = '[name].bundle.js';
-} else {
-  outputJsFilename = 'bundle.[hash:12].min.js';
-  outputCssFilename = 'bundle-[hash].css';
-  outputChunkFilename = '[name].bundle-[hash].js';
   plugins.push(
-    new AssetsPlugin({
-      path: path.join(__dirname, '..', 'dist'),
-      prettyPrint: true
-    })
+      new webpack.DefinePlugin({
+        'process.env': {
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+        }
+      }),
+      new ExtractTextPlugin({
+        filename: outputCssFilename,
+        disable: false,
+        allChunks: true
+      }),
+      new webpack.NamedModulesPlugin(),
+      new webpack.HotModuleReplacementPlugin()
   );
-}
+  return plugins;
+};
+
+// See https://github.com/lorenwest/node-config/wiki/Webpack-Usage
+fs.writeFileSync(path.resolve(__dirname, '..', 'dist/assets/config.js'), configShim(config));
 
 module.exports = {
   devtool: 'eval',
-  devServer: {
-    historyApiFallback: true,
-    contentBase: `${__dirname}/../src`,
-    hot: true
-  },
+  target: 'web',
   entry: {
     app: [
       'babel-polyfill',
-      path.join(__dirname, '..', 'src/client/index.js')
+      path.join(__dirname, '..', 'src/client/index.jsx')
     ],
     vendor: [
       'react',
@@ -66,9 +68,9 @@ module.exports = {
     ]
   },
   output: {
-    path: path.join(__dirname, '..', 'dist'),
+    path: path.join(__dirname, '..', 'dist/assets'),
     publicPath: '/assets',
-    filename: outputJsFilename
+    filename: config.get('wds') ? '[name].bundle.js' : '[name].bundle.[hash:12].min.js'
   },
   module: {
     rules: [
@@ -135,8 +137,14 @@ module.exports = {
     // at the top level, just in case a dependency also has react in its node_modules,
     // we don't want to be running to versions of react!!!
     alias: {
-      react: path.join(__dirname, 'node_modules/react')
+      react: path.join(__dirname, '..', 'node_modules/react'),
+      config: path.resolve(__dirname, '..', 'dist/assets/config.js')
     }
   },
-  plugins
+  node: {
+    fs: 'empty'
+  },
+  plugins: initializePlugins()
 };
+
+/* eslint-enable import/no-extraneous-dependencies */

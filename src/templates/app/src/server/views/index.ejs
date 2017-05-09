@@ -12,6 +12,7 @@
   <% if (config.get('wds')) { %>
     <script src="http://localhost:<%= config.get('port') %>/webpack-dev-server.js"></script>
   <% } %>
+  <script src="<%= assetConfigs.vendor.js %>"></script>
   <script src="<%= assetConfigs.app.js %>"></script>
 </body>
 </html>

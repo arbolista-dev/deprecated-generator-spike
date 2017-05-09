@@ -17,4 +17,4 @@ const mapDispatchToProps = dispatch => (
     login: actions.authentication.login
   }, dispatch)
 );
-export default connect(matchStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -2,7 +2,8 @@ import express from 'express';
 import os from 'os';
 import config from 'config';
 import 'ignore-styles';
-import assetConfigs from 'dist/assetConfigs.json';
+// eslint-disable-next-line import/no-unresolved
+import assetConfigs from '../../assetConfigs.json';
 import configureApp from './configureApp';
 
 const app = express();

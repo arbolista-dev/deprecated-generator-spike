@@ -18,6 +18,7 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "assets-webpack-plugin": "3.5.x",
     "babel-cli": "6.24.x",
     "babel-core": "6.24.x",
     "babel-eslint": "7.2.x",
@@ -57,7 +58,6 @@
     "express": "4.15.x",
     "history": "4.6.x",
     "ignore-styles": "5.0.x",
-    "immutable": "3.8.x",
     "lodash": "4.17.x",
     "morgan": "1.8.x",
     "react": "15.5.x",
@@ -75,11 +75,10 @@
     "redux-reset": "0.3.x",
     "redux-storage": "4.1.x",
     "redux-storage-decorator-debounce": "1.1.x",
-    "redux-storage-decorator-immutablejs": "1.0.x",
+    "redux-storage-decorator-filter": "1.1.x",
     "redux-storage-engine-cookies": "1.0.x",
     "reselect": "3.0.x",
     "rxjs": "5.0.x",
-    "serve-favicon": "2.4.x",
     "webpack": "2.5.x"
   }
 }

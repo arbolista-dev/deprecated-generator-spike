@@ -1,21 +1,16 @@
 import React, { PropTypes } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
-import { Provider } from 'react-redux';
-
+import { Provider, connect } from 'react-redux';
+import selectors from 'shared/redux/selectors';
 import routes from '../routes';
-import register from '../utils/redux-register';
-
 import Header from './Header';
-import Login from './Login';
-
-import '../assets/scss/main.scss';
+import '../assets/css/main.scss';
 
 function renderRoutes(props){
   const {loggedIn} = props;
-  // redirect.
   routes
-    .filter(route => route.path !== '/login')
+    .filter(route => route.props.path !== '/login')
     .map(route =>{
       if (route.secure && !loggedIn){
         return <Redirect to={{pathname: '/login', state: {from: props.location}}}/>
@@ -24,11 +19,11 @@ function renderRoutes(props){
     });
 }
 
-function renderLogin(props){
+function renderLogin(props, context){
   const {loggedIn} = props;
-  const loginRoute = routes.find(route => route.path === '/login');
+  const loginRoute = routes.find(route => route.props.path === '/login');
   if (loggedIn){
-    return <Redirect to={{pathname: '/'}} from={{props.location}}/>
+    return <Redirect to={{pathname: '/'}} from={props.location}/>
   }
   <Route path={'/login'} component={loginRoute.component}/>
 }
@@ -39,15 +34,13 @@ const Layout = (props) => (
       <Header />
       <Switch>
         {renderLogin(props)}
-        {renderRoute(props)}
+        {renderRoutes(props)}
       </Switch>
     </div>
-
   </div>
 );
 
-export default register(
-  ['modalSelector', 'layoutSelector'],
-  [],
-  Layout
-);
+const mapStateToProps = (state) => ({
+  loggedIn: selectors.authentication.loggedIn(state)
+});
+export default connect(mapStateToProps)(Layout);

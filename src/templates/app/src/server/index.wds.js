@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import config from 'config';
@@ -7,8 +9,10 @@ import configureApp from './configureApp';
 
 const compiler = webpack(webpackConfig);
 const devServer = new WebpackDevServer(compiler, {
-  contentBase: `${__dirname}/../../dist`,
+  historyApiFallback: true,
+  contentBase: path.join(__dirname, '../..', 'dist/assets'),
   publicPath: '/assets/',
+  hot: true,
   stats: { colors: true }
 });
 const { app } = devServer;
@@ -20,11 +24,11 @@ compiler.plugin('done', () => {
 
     const assetsConfigs = {
       app: {
-        js: '/assets/app.js',
-        css: '/assets/app.css'
+        js: '/assets/app.bundle.js',
+        css: '/assets/bundle.css'
       },
       vendor: {
-        js: '/assets/vendor.js'
+        js: '/assets/vendor.bundle.js'
       }
     };
     configureApp(app, assetsConfigs);
@@ -34,3 +38,4 @@ compiler.plugin('done', () => {
     });
   }
 });
+/* eslint-enable import/no-extraneous-dependencies */

@@ -1,7 +1,7 @@
 import config from 'config';
 import createCookiesEngine from 'redux-storage-engine-cookies';
 import debounce from 'redux-storage-decorator-debounce';
-import immutableDecorator from 'redux-storage-decorator-immutablejs';
+import filter from 'redux-storage-decorator-filter';
 
 /**
  * We use cookie storage so that the data can be seemlessly transmitted for
@@ -12,10 +12,10 @@ const cookiesEngine = createCookiesEngine(config.get('storage.key'), {
   expires: config.get('storage.durationDays')
 });
 
-const immutableEngine = immutableDecorator(cookiesEngine, [
+const filteredEngine = filter(cookiesEngine, [
   ['authentication'],
   ['currentUser', 'attributes']
 ]);
 
-export default debounce(immutableEngine, 2000);
+export default debounce(filteredEngine, 2000);
 

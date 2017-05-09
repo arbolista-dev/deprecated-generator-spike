@@ -1,8 +1,5 @@
-export default {
-  webpack: {
-    hash: false,
-    uglify: false
-  },
+module.exports = {
+  wds: false,
   server: {
     renderErrorStack: false
   }

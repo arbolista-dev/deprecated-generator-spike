@@ -1,1 +1,5 @@
-export * as authentication from './authentication';
+import * as authentication from './authentication';
+
+export default {
+  authentication
+};

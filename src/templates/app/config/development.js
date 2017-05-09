@@ -1,3 +1,1 @@
-export default {
-  wds: true
-};
+module.exports = {};

@@ -1,39 +1,45 @@
 import { createReducer } from 'redux-act';
-import { Map } from 'immutable';
-import { authentication } from 'shared/redux/actions';
+import actions from 'shared/redux/actions';
 
-export default createReduce({
-  [authentication.login]: (authentication, _payload) => authState.merge({
+const { authentication } = actions;
+
+export default createReducer({
+  [authentication.login]: (authState, _payload) => ({
+    ...authState,
     loggingIn: true,
     loginError: null,
     token: null
   }),
-  [authentication.loginSuccess]: (authState, { token }) => authState.merge({
+  [authentication.loginSuccess]: (authState, { token }) => ({
+    ...authState,
     loggingIn: false,
     loggedIn: true,
     loginError: null,
     token
   }),
-  [authentication.loginError]: (authState, payload) => authState.merge({
+  [authentication.loginError]: (authState, payload) => ({
+    ...authState,
     loggingIn: false,
     loggedIn: true,
     loginError: payload,
     token: null
   }),
-  [authentication.logout]: authState => authState.merge({
+  [authentication.logout]: authState => ({
+    ...authState,
     loggingOut: true
   }),
-  [authentication.loginSuccess]: authState => authState.merge({
+  [authentication.logoutSuccess]: authState => ({
+    ...authState,
     loggingOut: false,
     loggedIn: false,
     token: null
   }),
-  [authentication.loginError]: authState =>
-    // Swallow the error here.
-     authState.merge({
-       loggingOut: false,
-       loggedIn: false,
-       token: null
-     })
-
-}, Map({ token: null }));
+  // Logout of server failed. Logout of client. The error
+  // should be reported in middleware.
+  [authentication.logoutError]: authState => ({
+    ...authState,
+    loggingOut: false,
+    loggedIn: false,
+    token: null
+  })
+}, { token: null, loggedIn: false });

@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import immutableDecorator from 'redux-storage-decorator-immutablejs';
+import filter from 'redux-storage-decorator-filter';
 
 /**
  * This is not a storageEngine, but rather a generator.
@@ -23,7 +23,7 @@ export const createEngine = (key, req) => {
       return Promise.resolve();
     }
   };
-  return immutableDecorator(storageEngine, [
+  return filter(storageEngine, [
     ['authentication'],
     ['currentUser', 'attributes']
   ]);

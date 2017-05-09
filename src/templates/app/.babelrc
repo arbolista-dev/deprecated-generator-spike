@@ -16,6 +16,7 @@
           "api/fixtures": "./src/shared/api/fixtures",
           "api/http": "./src/shared/api/http"
         }
-      }]
+      }],
+      "transform-object-rest-spread"
     ]
 }

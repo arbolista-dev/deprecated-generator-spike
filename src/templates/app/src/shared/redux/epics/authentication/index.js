@@ -1,23 +1,22 @@
 import api from 'shared/api';
-import {
-  authentication as actions
-} from 'shared/redux/actions';
+import Rx from 'rxjs';
+import actions from 'shared/redux/actions';
 
 const authenticationApi = api().authentication;
 
-export const login = (action$, _store)=>
-  action$.ofType(actions.login.getType())
-    .mergeMap(action =>{
-        authenticationApi.login(action.payload)
-          .map(response => actions.loginSuccess(response))
-          .catch(error => Observable.of(actions.loginError(error)))
-      });
+const login = (action$, _store) =>
+  action$.ofType(actions.authentication.login.getType())
+    .mergeMap(action => authenticationApi.login(action.payload)
+          .map(response => actions.authentication.loginSuccess(response))
+          .catch(error => Rx.Observable.of(actions.authentication.loginError(error))));
 
-export const login = (action$, store) =>
-  action$.ofType(actions.login.getType())
-    .mergeMap(action =>{
-        const {authentication: { token }} = store.getState();
-        authenticationApi.logout(token)
-          .map(response => actions.logoutSuccess())
-          .catch(error => Observable.of(actions.logoutError(error)))
-      });
+const logout = (action$, store) =>
+  action$.ofType(actions.authentication.logout.getType())
+    .mergeMap((_action) => {
+      const { authentication: { token } } = store.getState();
+      return authenticationApi.logout(token)
+          .map(_response => actions.authentication.logoutSuccess())
+          .catch(error => Rx.Observable.of(actions.authentication.logoutError(error)));
+    });
+
+export default [login, logout];
