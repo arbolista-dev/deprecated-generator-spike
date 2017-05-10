@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import Layout from 'shared/layout';
 import { createEngine } from './storageEngine';
 import createStore from 'shared/redux/createStore';
+
 /**
  * renderReact will render the React application to a string
  * based on the current route and cookies or pass redirect

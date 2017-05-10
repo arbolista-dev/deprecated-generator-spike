@@ -16,7 +16,7 @@ const Header = ({ user, authentication, logout }) => (
   <header>
     <h1>Header</h1>
     { authentication.loggingIn ? <div>'logging in...'</div> : null}
-    { authentication.loggedIn ? userHeader(user, logout) : (<i>You are not logged in.</i>) }
+    { authentication.loggedIn ? userHeader(user, logout) : (<i>You are not logged in!</i>) }
   </header>
 );
 

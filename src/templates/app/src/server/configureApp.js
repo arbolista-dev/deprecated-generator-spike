@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
@@ -54,7 +52,7 @@ const createRequestHandler = assetConfigs => (req, res) => {
 };
 
 /**
- * config will accept an instance of an express application
+ * configApp will accept an instance of an express application
  * and configure it for necessary parsing, logging, and
  * request handling.
  */
@@ -72,4 +70,3 @@ export default function configureApp(app, assetConfigs) {
   const requestHanlder = createRequestHandler(assetConfigs);
   app.get(/^(?!(\/assets|\/favico|\/robots))/, requestHanlder);
 }
-/* eslint-enable import/prefer-default-export */
