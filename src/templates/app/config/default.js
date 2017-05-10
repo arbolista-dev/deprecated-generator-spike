@@ -4,7 +4,7 @@ module.exports = {
   error: {
     log: true
   },
-  isomorphic: true,
+  isomorphic: false,
   storage: {
     key: 'redux'
   },

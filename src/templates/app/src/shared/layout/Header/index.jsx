@@ -1,31 +1,28 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 import container from './Header.container';
+
 
 const userHeader = (user, logout) => (
   <div className="user-info">
-    Welcome {user.attributes.username} <span>-</span>
+    Welcome {user.attributes.username} <span>- </span>
     <button
       onClick={() => { logout(); }}
     >Logout</button>
   </div>
 );
 
-const Header = ({ user, authentication, login, logout }) => (
+const Header = ({ user, authentication, logout }) => (
   <header>
+    <h1>Header</h1>
     { authentication.loggingIn ? <div>'logging in...'</div> : null}
-    { authentication.loggedIn ?
-      userHeader(user, logout)
-    :
-      (<button onClick={() => { login({ username: 'Bob', password: 'password' }); }}>Login</button>)
-    }
+    { authentication.loggedIn ? userHeader(user, logout) : (<Link to={'/login'}>Login</Link>) }
   </header>
 );
 
 Header.propTypes = {
-  authentication: PropTypes.shape({}).isRequired,
-  user: PropTypes.shape({}),
-  login: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
+  user: PropTypes.shape({})
 };
 
 export default container(Header);

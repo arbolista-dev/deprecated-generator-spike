@@ -8,7 +8,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  login: actions.authentication.login,
   logout: actions.authentication.logout
 }, dispatch);
 

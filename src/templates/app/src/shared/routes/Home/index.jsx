@@ -1,5 +1,8 @@
 import React from 'react';
 
-export default props => (
-  <div>You are home</div>
-)
+export default _props => (
+  <div>
+    <h2>Home</h2>
+    <div>Isn't it nice?</div>
+  </div>
+);

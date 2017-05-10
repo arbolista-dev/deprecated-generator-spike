@@ -3,12 +3,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actions from 'shared/redux/actions';
 
-function login(props){
-  props.login('username', 'password');
-}
-
 const Login = props => (
-  <button onClick={login(props)}>Login</button>
+  <div>
+    <h2>Login</h2>
+    <button onClick={()=>props.login({username: 'Bob', password: 'password'})}>Login</button>
+  </div>
 );
 
 const mapStateToProps = state => ({});
