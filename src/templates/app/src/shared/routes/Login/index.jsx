@@ -1,11 +1,12 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import actions from 'shared/redux/actions';
 
 const Login = props => (
   <div>
-    <h2>Login</h2>
+    <h3>Login</h3>
     <button onClick={()=>props.login({username: 'Bob', password: 'password'})}>Login</button>
   </div>
 );

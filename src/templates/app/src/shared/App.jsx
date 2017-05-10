@@ -1,14 +1,14 @@
 import { Router } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux';
+import { ConnectedRouter } from 'react-router-redux';
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import Layout from './layout';
 
 const App = ({store, history}) => (
   <Provider store={store}>
-    <Router history={syncHistoryWithStore(history, store)}>
+    <ConnectedRouter history={history}>
       <Layout/>
-    </Router>
+    </ConnectedRouter>
   </Provider>
 );
 

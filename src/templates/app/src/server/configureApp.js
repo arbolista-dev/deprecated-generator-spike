@@ -1,34 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import createHistory from 'history/createMemoryHistory';
+
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import logger from 'morgan';
 import config from 'config';
-import createStore from 'shared/redux/createStore';
-import App from 'shared/App';
-import { createEngine } from './storageEngine';
-
-/**
- * renderReact will render the React application to a string
- * based on the current route and cookies.
- */
-function renderReact(req) {
-  const history = createHistory({
-    initialEntries: [req.url]
-  });
-
-  const storageEngine = createEngine(config.get('storage.key'), req);
-  const store = createStore(history, storageEngine);
-  const props = {
-    history,
-    store
-  };
-  const app = React.createElement(App, props);
-  return ReactDOMServer.renderToString(app);
-}
+import renderReact from './renderReact';
 
 /**
  * handleError will return an error message (different depending on
@@ -54,7 +31,16 @@ const createRequestHandler = assetConfigs => (req, res) => {
   let content = '';
   try {
     if (config.get('isomorphic')) {
-      content = renderReact(req);
+      const {
+        renderedContent,
+        redirect
+      } = renderReact(req);
+      if (redirect) {
+        const { url, status } = redirect;
+        res.redirect(status, url);
+        return;
+      }
+      content = renderedContent;
     }
     res.set('Content-Type', 'text/html');
     res.render('index', {

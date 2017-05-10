@@ -4,7 +4,6 @@ import { createEpicMiddleware } from 'redux-observable';
 import reduxReset from 'redux-reset';
 import reduxCatch from 'redux-catch';
 import * as storage from 'redux-storage';
-import { routerMiddleware } from 'react-router-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 
 import epics from './epics';
@@ -19,13 +18,12 @@ const errorHandler = (error, _getState, lastAction, _dispatch) => {
   // optionally dispatch an action due to the error using the dispatch parameter
 };
 
-export default (history, storageEngine) => {
+export default (storageEngine) => {
   const storageMiddleware = storage.createMiddleware(storageEngine);
   const middleware = applyMiddleware(
     reduxCatch(errorHandler),
     storageMiddleware,
     // logger(),
-    routerMiddleware(history),
     createEpicMiddleware(epics),
   );
 
