@@ -59,6 +59,7 @@ module.exports = {
   target: 'web',
   entry: {
     app: [
+      `webpack-dev-server/client?http://localhost:${config.get('port')}/`,
       'babel-polyfill',
       path.join(__dirname, '..', 'src/client/index.jsx')
     ],
