@@ -1,10 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import 'shared/lib/ignoreStyles';
 import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import config from 'config';
-import webpackConfig from 'webpack/config';
-import 'ignore-styles';
+import webpackConfig from 'webpack/config.babel';
 import configureApp from './configureApp';
 
 const compiler = webpack(webpackConfig);
@@ -12,7 +12,7 @@ const devServer = new WebpackDevServer(compiler, {
   historyApiFallback: true,
   contentBase: path.join(__dirname, '../..', 'dist/assets'),
   publicPath: '/assets',
-  //hot: true,
+  // hot: true,
   stats: { colors: true },
   port: config.get('port')
 });

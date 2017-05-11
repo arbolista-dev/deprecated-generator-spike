@@ -1,6 +1,6 @@
 module.exports = {
   port: 3000,
-  wds: true,
+  wds: false,
   error: {
     log: true
   },
@@ -12,6 +12,6 @@ module.exports = {
     renderErrorStack: true
   },
   api: {
-    fixtures: true
+    fixtures: false
   }
 };

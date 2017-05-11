@@ -1,0 +1,9 @@
+{
+  "wds": "WDS",
+  "api": {
+    "fixtures": "FIXTURES"
+  },
+  "server": {
+    "renderErrorStack": "ERROR_STACK"
+  }
+}

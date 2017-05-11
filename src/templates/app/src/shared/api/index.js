@@ -10,6 +10,7 @@ import http from 'api/http';
  * can opt in and out of using the fixtures, but make sure to
  * exclude the unused modules from webpack bundle.
  */
+
 export default () => {
   if (config.get('api.fixtures')) {
     return fixtures;
