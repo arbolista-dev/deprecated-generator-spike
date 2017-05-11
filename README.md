@@ -9,3 +9,10 @@
 * redux-catch: Tested pattern for catching errors during redux updates. Can configure this to log errors to console, or save them through an API such as Firebase.
 * redux-logger: Log changes to redux state for development purposes.
 
+# Server Side rendering with Styles
+
+We explored a few options:
+
+* [babel-plugin-react-css-modules](https://www.npmjs.com/package/babel-plugin-react-css-modules): We should consider this if we ever do inline styles. We can use [postcss-scss](https://www.npmjs.com/package/postcss-scss) to compile scss.
+* [ignore-styles](https://www.npmjs.com/package/ignore-styles).
+* We ended up using [node-hook](https://www.npmjs.com/package/node-hook) because it should be flexible enough to handle a variety of situations.
