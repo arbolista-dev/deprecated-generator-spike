@@ -1,13 +1,13 @@
+import 'shared/lib/ignoreStyles';
 import express from 'express';
 import os from 'os';
 import config from 'config';
-import 'ignore-styles';
 // eslint-disable-next-line import/no-unresolved
-import assetConfigs from '../../assetConfigs.json';
+import webpackAssets from '../webpack-assets.json';
 import configureApp from './configureApp';
 
 const app = express();
-configureApp(app, assetConfigs);
+configureApp(app, webpackAssets);
 
 app.listen(config.get('port'), () => {
   console.info(`App is now running on ${os.hostname()}:${config.get('port')}`);

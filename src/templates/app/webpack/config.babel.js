@@ -1,32 +1,23 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import fs from 'fs';
 import config from 'config';
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import AssetsPlugin from 'assets-webpack-plugin';
-import configShim from 'client/lib/shimConfig';
 
-const initializePlugins = () => {
+const definePlugins = () => {
   const plugins = [];
-  /**
-   * When running webpack dev server, you don't want to hash
-   * file output.
-   */
   let outputCssFilename;
   let outputChunkFilename;
+
+  // When running webpack dev server, you don't want to hash
+  // file output.
   if (config.get('wds')) {
     outputCssFilename = 'bundle.css';
     outputChunkFilename = '[name].bundle.js';
   } else {
     outputCssFilename = 'bundle-[hash].css';
     outputChunkFilename = '[name].bundle-[hash].js';
-    plugins.push(
-      new AssetsPlugin({
-        path: path.join(__dirname, '..', 'dist'),
-        prettyPrint: true
-      })
-    );
   }
   if (config.get('wds')) {
     plugins.push(new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: outputChunkFilename }));
@@ -35,31 +26,39 @@ const initializePlugins = () => {
   }
 
   plugins.push(
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-        }
-      }),
-      new ExtractTextPlugin({
-        filename: outputCssFilename,
-        disable: false,
-        allChunks: true
-      }),
-      new webpack.NamedModulesPlugin(),
-      new webpack.HotModuleReplacementPlugin()
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+      }
+    }),
+    new ExtractTextPlugin({
+      filename: outputCssFilename,
+      disable: false,
+      allChunks: true
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   );
+  if (!config.get('wds')) {
+    plugins.push(
+      new AssetsPlugin({
+        path: path.join(__dirname, '..', 'dist'),
+        prettyPrint: true
+      })
+    );
+  }
+
   return plugins;
 };
 
-// See https://github.com/lorenwest/node-config/wiki/Webpack-Usage
-fs.writeFileSync(path.resolve(__dirname, '..', 'dist/assets/config.js'), configShim(config));
-
-module.exports = {
-  devtool: 'eval',
-  target: 'web',
-  entry: {
+function defineEntry() {
+  const entry = {
     app: [
-      `webpack-dev-server/client?http://localhost:${config.get('port')}/`,
       'babel-polyfill',
       path.join(__dirname, '..', 'src/client/index.jsx')
     ],
@@ -67,19 +66,24 @@ module.exports = {
       'react',
       'redux'
     ]
-  },
+  };
+  if (config.get('wds')) {
+    entry.app.unshift(`webpack-dev-server/client?http://localhost:${config.get('port')}/`);
+  }
+  return entry;
+}
+
+module.exports = {
+  devtool: 'eval',
+  target: 'web',
+  entry: defineEntry,
   output: {
     path: path.join(__dirname, '..', 'dist/assets'),
-    publicPath: '/assets',
+    publicPath: '/assets/',
     filename: config.get('wds') ? '[name].bundle.js' : '[name].bundle.[hash:12].min.js'
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
-      },
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -93,6 +97,11 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader?modules', 'sass-loader']
         })
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
       },
       {
         test: /\.woff(2)?(\?[a-z0-9]+)?$/,
@@ -139,13 +148,13 @@ module.exports = {
     // we don't want to be running to versions of react!!!
     alias: {
       react: path.join(__dirname, '..', 'node_modules/react'),
-      config: path.resolve(__dirname, '..', 'dist/assets/config.js')
+      config: path.resolve(__dirname, '..', 'src/client/lib/config.shim')
     }
   },
   node: {
     fs: 'empty'
   },
-  plugins: initializePlugins()
+  plugins: definePlugins()
 };
 
 /* eslint-enable import/no-extraneous-dependencies */

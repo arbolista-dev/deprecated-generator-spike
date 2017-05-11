@@ -6,10 +6,11 @@
   "scripts": {
     "lint": "eslint . --fix",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
-    "dev": "babel-node ./src/server/index.wds.js",
+    "dev": "FIXTURES=1 WDS=1 babel-node ./src/server/index.wds.js",
     "start": "node ./dist/server/index.js",
-    "build:server": "echo 'You have not entered build steps.'",
-    "build:client": "echo 'You have not entered build steps.`",
+    "build:server": "babel src/shared -d dist/shared --ignore test.js && babel src/server -d dist/server --ignore wds.js,test.js,src/server/test && sh ./copyServerFiles.sh",
+    "build:client": "webpack --config webpack/config.babel.js",
+    "build": "npm run build:client && npm run build:server",
     "test": "babel-node test.js"
   },
   "pre-commit": [
@@ -50,6 +51,7 @@
   },
   "dependencies": {
     "axios": "0.16.x",
+    "babel-register": "6.23.x",
     "babel-polyfill": "6.23.x",
     "bundle-loader": "0.5.x",
     "cookie-parser": "1.4.x",
@@ -57,9 +59,9 @@
     "classnames": "2.2.x",
     "express": "4.15.x",
     "history": "4.6.x",
-    "ignore-styles": "5.0.x",
     "lodash": "4.17.x",
     "morgan": "1.8.x",
+    "node-hook": "0.6.x",
     "react": "15.5.x",
     "react-dom": "15.5.x",
     "react-hot-loader": "3.0.0-beta.6",
