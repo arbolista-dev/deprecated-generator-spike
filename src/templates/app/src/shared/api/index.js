@@ -11,7 +11,7 @@ import http from 'api/http';
  * exclude the unused modules from webpack bundle.
  */
 
-export default () => {
+export default (stubs) => {
   if (config.get('api.fixtures')) {
     return fixtures;
   }

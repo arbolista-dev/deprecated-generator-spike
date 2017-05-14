@@ -12,6 +12,7 @@ module.exports = {
     renderErrorStack: true
   },
   api: {
-    fixtures: false
+    fixtures: false,
+    base: 'http://localhost:3000'
   }
 };
