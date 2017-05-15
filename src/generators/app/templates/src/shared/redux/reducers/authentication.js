@@ -20,7 +20,7 @@ export default createReducer({
   [authentication.loginError]: (authState, payload) => ({
     ...authState,
     loggingIn: false,
-    loggedIn: true,
+    loggedIn: false,
     loginError: payload,
     token: null
   }),

@@ -1,6 +1,6 @@
 # Goals for Publishing this as  Generator
 
-* generate scaffoling with yeoman
+* compose generators with config options.
 * generate tests with yeoman:
   * redux reducers, selectors, and epics.
   * server responses.

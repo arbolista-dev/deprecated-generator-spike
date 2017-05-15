@@ -2,9 +2,11 @@
   "name": "generator-spike",
   "version": "0.0.1",
   "description": "Generator for React apps, reducers, components, and mock api.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --fix",
+    "test": "babel-node test.js",
+    "babel": "babel"
   },
   "files": [
     "dist/generators"
@@ -15,9 +17,30 @@
     "yeoman-generator",
     "scaffloding"
   ],
-  "author": "opportunities@arbolista.mx",
+  "author": "",
   "dependencies": {
-    "yeoman": "^1.0.0"
+    "yeoman-generator": ">= 1.1.1"
+  },
+  "peerDependencies": {
+    "yo": ">= 1.8.0"
+  },
+  "devDependencies": {
+    "babel-cli": ">= 6.24.0",
+    "babel-core": ">= 6.24.0",
+    "babel-eslint": ">= 7.2.0",
+    "babel-plugin-module-resolver": ">= 2.7.0",
+    "babel-plugin-transform-object-rest-spread": ">= 6.23.0",
+    "babel-preset-env": ">= 1.4.0",
+    "chai": ">= 3.5.0",
+    "eslint": "3.19.x",
+    "eslint-config-airbnb": "14.1.x",
+    "eslint-plugin-import": "2.2.x",
+    "eslint-plugin-jsx-a11y": "4.0.x",
+    "eslint-plugin-react": "6.9.x",
+    "eslint-import-resolver-babel-module": "3.0.x",
+    "mocha": ">= 3.4.1",
+    "yeoman-assert": ">= 3.0.0",
+    "yeoman-test": ">= 1.6.0"
   },
   "license": "MIT"
 }
