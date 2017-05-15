@@ -2,14 +2,13 @@ import actions from 'shared/redux/actions';
 import { expect } from 'chai';
 import authReducer from './authentication';
 
-describe('authentication reducer', ()=>{
-
-  context('not logged in', ()=>{
+describe('authentication reducer', () => {
+  context('not logged in', () => {
     const originalState = {
       token: null,
       loggedIn: false
     };
-    it('can tracks logging in', ()=>{
+    it('can tracks logging in', () => {
       const result = authReducer(originalState, actions.authentication.login({
         username: 'yada',
         password: 'password'
@@ -25,7 +24,7 @@ describe('authentication reducer', ()=>{
         loggedIn: false
       });
     });
-    it('can tracks when logged in successfully', ()=>{
+    it('can tracks when logged in successfully', () => {
       const result = authReducer(originalState, actions.authentication.loginSuccess({
         token: '123456',
         user: {
@@ -44,7 +43,7 @@ describe('authentication reducer', ()=>{
         loggedIn: false
       });
     });
-    it('can tracks when login error', ()=>{
+    it('can tracks when login error', () => {
       const result = authReducer(originalState, actions.authentication.loginError({
         message: 'You messed up.'
       }));
@@ -52,7 +51,7 @@ describe('authentication reducer', ()=>{
         token: null,
         loggedIn: false,
         loggingIn: false,
-        loginError: {message: 'You messed up.'}
+        loginError: { message: 'You messed up.' }
       });
       expect(originalState).to.deep.equal({
         token: null,
@@ -60,13 +59,13 @@ describe('authentication reducer', ()=>{
       });
     });
   });
-  context('when logged out', ()=>{
+  context('when logged out', () => {
     const originalState = {
       token: '123456',
       loggedIn: true
     };
 
-    it('can tracks logging out', ()=>{
+    it('can tracks logging out', () => {
       const result = authReducer(originalState, actions.authentication.logout('123456'));
       expect(result).to.deep.equal({
         token: '123456',
@@ -78,7 +77,7 @@ describe('authentication reducer', ()=>{
         loggedIn: true
       });
     });
-    it('can tracks when logged out successfully', ()=>{
+    it('can tracks when logged out successfully', () => {
       const result = authReducer(originalState, actions.authentication.logoutSuccess());
       expect(result).to.deep.equal({
         token: null,
@@ -90,7 +89,7 @@ describe('authentication reducer', ()=>{
         loggedIn: true
       });
     });
-    it('can tracks when logout error', ()=>{
+    it('can tracks when logout error', () => {
       const result = authReducer(originalState, actions.authentication.logoutError('oops!'));
       expect(result).to.deep.equal({
         token: null,
@@ -102,7 +101,5 @@ describe('authentication reducer', ()=>{
         loggedIn: true
       });
     });
-
   });
-
 });

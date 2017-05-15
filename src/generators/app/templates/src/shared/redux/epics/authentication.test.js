@@ -1,14 +1,12 @@
-import config from 'config';
 import { expect } from 'chai';
 import { ActionsObservable } from 'redux-observable';
+import { TestScheduler } from 'rxjs';
 import actions from 'shared/redux/actions';
 import authEpics from './authentication';
-import { TestScheduler } from 'rxjs';
 
 const [loginEpic, logoutEpic] = authEpics;
 
 describe('login', () => {
-
   it('returns token and user attributes', () => {
     const user = { id: 123, username: 'skid' };
     const token = '1234567890';
@@ -19,7 +17,7 @@ describe('login', () => {
     };
 
     const testScheduler = new TestScheduler((actual, expected) => {
-       expect(actual).to.deep.equal(expected);
+      expect(actual).to.deep.equal(expected);
     });
 
     const action$ = new ActionsObservable(
@@ -29,14 +27,14 @@ describe('login', () => {
     );
 
     const response$ = testScheduler.createColdObservable('-a|', {
-      a: {data: { user, token }}
+      a: { data: { user, token } }
     });
-    const test$ = loginEpic(action$, undefined, (payload)=>{
+    const test$ = loginEpic(action$, undefined, (payload) => {
       expect(payload).to.deep.equal(loginData);
-      return response$
+      return response$;
     });
     testScheduler.expectObservable(test$).toBe('-a|', {
-        a: actions.authentication.loginSuccess({ user, token })
+      a: actions.authentication.loginSuccess({ user, token })
     });
     testScheduler.flush();
   });
@@ -48,7 +46,7 @@ describe('login', () => {
       password: 'password'
     };
     const testScheduler = new TestScheduler((actual, expected) => {
-       expect(actual).to.deep.equal(expected);
+      expect(actual).to.deep.equal(expected);
     });
 
     const action$ = new ActionsObservable(
@@ -58,16 +56,14 @@ describe('login', () => {
     );
 
     const response$ = testScheduler.createColdObservable('-#', null, { message });
-    const test$ = loginEpic(action$, undefined, (payload)=>{
+    const test$ = loginEpic(action$, undefined, (payload) => {
       expect(payload).to.deep.equal(loginData);
-      return response$
+      return response$;
     });
     testScheduler.expectObservable(test$).toBe('-(a|)', {
-        a: actions.authentication.loginError({ message })
+      a: actions.authentication.loginError({ message })
     });
     testScheduler.flush();
-
-
   });
 });
 
@@ -86,15 +82,15 @@ describe('logout', () => {
     );
 
     const response$ = testScheduler.createColdObservable('-a|', {
-      a: {data: undefined}
+      a: { data: undefined }
     });
-    const mockStore = {getState: ()=>({authentication: {token}})}
-    const test$ = logoutEpic(action$, mockStore, (payload)=>{
+    const mockStore = { getState: () => ({ authentication: { token } }) };
+    const test$ = logoutEpic(action$, mockStore, (payload) => {
       expect(payload).to.equal(token);
-      return response$
+      return response$;
     });
     testScheduler.expectObservable(test$).toBe('-a|', {
-        a: actions.authentication.logoutSuccess()
+      a: actions.authentication.logoutSuccess()
     });
     testScheduler.flush();
   });
@@ -114,13 +110,13 @@ describe('logout', () => {
     );
 
     const response$ = testScheduler.createColdObservable('-#', null, { message });
-    const mockStore = {getState: ()=>({authentication: {token}})}
-    const test$ = logoutEpic(action$, mockStore, (payload)=>{
+    const mockStore = { getState: () => ({ authentication: { token } }) };
+    const test$ = logoutEpic(action$, mockStore, (payload) => {
       expect(payload).to.equal(token);
-      return response$
+      return response$;
     });
     testScheduler.expectObservable(test$).toBe('-(a|)', {
-        a: actions.authentication.logoutError({ message })
+      a: actions.authentication.logoutError({ message })
     });
     testScheduler.flush();
   });

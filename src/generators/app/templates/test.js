@@ -1,21 +1,20 @@
 import Mocha from 'mocha';
 import fs from 'fs';
 import path from 'path';
-import { argv } from 'yargs';
 
 // Instantiate a Mocha instance.
 const mocha = new Mocha({
   ui: 'bdd',
-  timeout: argv.timeout || 15000
+  timeout: 15000
 });
 
-function addDirectory(testDir, regex = /\.test\.js$/) {
+function addDirectory(testDir, regex = /\.test\.jsx?$/) {
   // Add each .js file to the mocha instance
   fs.readdirSync(testDir)
     .forEach((file) => {
       const filePath = path.resolve(testDir, file);
-      if (fs.statSync(filePath).isDirectory())        {
-        return addDirectory(filePath, regex);
+      if (fs.statSync(filePath).isDirectory()) {
+        addDirectory(filePath, regex);
       }
 
       // Only add the test.js files

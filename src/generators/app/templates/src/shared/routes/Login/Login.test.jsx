@@ -5,11 +5,10 @@ import { shallow } from 'enzyme';
 import { Login } from './index';
 
 
-describe('<Login/>', ()=>{
-
-  it('renders header', ()=>{
+describe('<Login/>', () => {
+  it('renders header', () => {
     const props = {
-      login: ()=>{}
+      login: () => {}
     };
     const wrapper = shallow(<Login {...props} />);
     const header = wrapper.find('h3');
@@ -17,7 +16,7 @@ describe('<Login/>', ()=>{
     expect(header.text()).to.equal('Login');
   });
 
-  it('has login button', ()=>{
+  it('has login button', () => {
     const props = {
       login: sinon.spy()
     };
@@ -26,5 +25,4 @@ describe('<Login/>', ()=>{
     button.simulate('click');
     expect(props.login.callCount).to.equal(1);
   });
-
 });

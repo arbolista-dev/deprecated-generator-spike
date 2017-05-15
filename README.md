@@ -1,3 +1,13 @@
+# Why
+
+React it is not a framework. There do exist a number of scaffoldings, but we aim to be a complete framework solution that makes use of generators so you can additively build your app, rather than starting out with a scaffolding and stripping away pieces you do not need. Additionally, we place an emphasis on the following areas:
+
+- Test writing through the use of generators that reflect current best practices.
+- Support for server side rendering out of the box.
+- Support CSS modules out of the box.
+- Support for running webpack dev server and compiling a production app and server right out of the box.
+- Best Redux practices with support for development and production logging. Read your frontend logs like you read your server logs!
+
 # Redux Dependencies
 
 * redux-observable: Abstracts all async out of reducers and components using ReactiveX.
