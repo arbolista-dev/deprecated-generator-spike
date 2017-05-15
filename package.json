@@ -2,10 +2,11 @@
   "name": "generator-spike",
   "version": "0.0.1",
   "description": "Generator for React apps, reducers, components, and mock api.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint . --fix",
-    "test": "babel-node test.js"
+    "test": "babel-node test.js",
+    "babel": "babel"
   },
   "files": [
     "dist/generators"
@@ -19,6 +20,9 @@
   "author": "",
   "dependencies": {
     "yeoman-generator": ">= 1.1.1"
+  },
+  "peerDependencies": {
+    "yo": ">= 1.8.0"
   },
   "devDependencies": {
     "babel-cli": ">= 6.24.0",
