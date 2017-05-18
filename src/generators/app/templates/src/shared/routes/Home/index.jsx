@@ -1,9 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 
-export default _props => (
+const Home = () => (
   <div>
     <h3>Home</h3>
     <div>Isn't it nice?</div>
   </div>
 );
+
+export default Home;
