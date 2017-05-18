@@ -12,12 +12,14 @@ import PrivateRoute from './PrivateRoute';
 // Routes Components
 import Home from './Home';
 import Login from './Login';
+import NotFoundPage from './NotFoundPage';
 
 const Routes = ({ loggedIn }) => (
   <Router>
     <Switch>
       <PrivateRoute path="/" exact component={Home} loggedIn={loggedIn} />
       <Route path="/login" component={Login} />
+      <Route component={NotFoundPage} />
     </Switch>
   </Router>
 );
