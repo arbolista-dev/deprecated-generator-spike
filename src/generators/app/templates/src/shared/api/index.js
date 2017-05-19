@@ -1,6 +1,17 @@
-import config from 'config';
-import fixtures from 'api/fixtures';
+/* eslint no-confusing-arrow: 0 */
+
+import { reduce } from 'lodash';
+import fixtures from 'api/http/fixtures';
 import http from 'api/http';
+
+const ApiMiddleware = (module, moduleName) => reduce(module, (result, value, key) => (
+  {
+    ...result,
+    [key]: (data = {}, options = {}) =>
+      options.fixture ? fixtures[moduleName][key](data, options) : value(data, options)
+  }
+), {});
+
 
 /**
  * Shared code must be able to run on server and client.
@@ -11,9 +22,7 @@ import http from 'api/http';
  * exclude the unused modules from webpack bundle.
  */
 
-export default () => {
-  if (config.get('api.fixtures')) {
-    return fixtures;
-  }
-  return http;
-};
+export default () => reduce(http, (result, value, key) => (
+  { ...result, [key]: ApiMiddleware(value, key) }
+), {});
+

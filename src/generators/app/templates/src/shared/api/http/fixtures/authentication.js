@@ -10,4 +10,4 @@ export const login = ({ username, password: _password }) => resolve({
   }
 });
 
-export const logout = _token => resolve();
+export const logout = () => resolve();
