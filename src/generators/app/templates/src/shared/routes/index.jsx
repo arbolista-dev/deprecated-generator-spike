@@ -18,14 +18,32 @@ const Routes = ({ loggedIn }) => (
   <Router>
     <Switch>
       <PrivateRoute path="/" exact component={Home} loggedIn={loggedIn} />
-      <Route path="/login" component={Login} />
+      <Route
+        path="/login"
+        render={props => (
+          !loggedIn
+            ? <Login {...props} />
+            :
+            <Redirect
+              to={{
+                pathname: '/',
+                state: { from: props.location }
+              }}
+            />
+        )}
+      />
       <Route component={NotFoundPage} />
     </Switch>
   </Router>
 );
 
 GetRoutesContent.propTypes = {
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
+  location: PropTypes.shape({})
+};
+
+GetRoutesContent.defaultProps = {
+  location: {}
 };
 
 const mapStateToProps = state => ({
