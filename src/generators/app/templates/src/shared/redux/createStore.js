@@ -1,6 +1,5 @@
 import config from 'config';
 import { createEpicMiddleware } from 'redux-observable';
-// import logger from 'redux-logger';
 import reduxReset from 'redux-reset';
 import reduxCatch from 'redux-catch';
 import * as storage from 'redux-storage';
@@ -21,9 +20,8 @@ const errorHandler = (error, _getState, lastAction, _dispatch) => {
 export default (storageEngine) => {
   const storageMiddleware = storage.createMiddleware(storageEngine);
   const middleware = applyMiddleware(
-    reduxCatch(errorHandler),
     storageMiddleware,
-    // logger(),
+    reduxCatch(errorHandler),
     createEpicMiddleware(epics),
   );
 

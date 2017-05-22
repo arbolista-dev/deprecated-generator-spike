@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import createStore from 'shared/redux/createStore';
 import Layout from 'shared/layout';
 import storageEngine from './storageEngine';
-import i18n from './i18n';
+import i18n from './lib/i18n';
 
 if (config.get('api.fixtures')) {
   // eslint-disable-next-line global-require

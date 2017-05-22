@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import Layout from 'shared/layout';
 import { createEngine } from './storageEngine';
 import createStore from 'shared/redux/createStore';
-import i18n from './i18n';
+
 /**
  * renderReact will render the React application to a string
  * based on the current route and cookies or pass redirect
@@ -19,7 +19,7 @@ export default function renderReact(req) {
   const renderedContent = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={redirect}>
-        <Layout i18n={i18n} />
+        <Layout i18n={req.i18n} />
       </StaticRouter>
     </Provider>
   );

@@ -14,5 +14,11 @@ module.exports = {
   api: {
     fixtures: false,
     base: 'http://localhost:3000'
+  },
+  i18n: {
+    debug: false
+  },
+  redux: {
+    devTools: false
   }
 };

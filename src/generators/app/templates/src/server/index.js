@@ -1,4 +1,4 @@
-import 'shared/lib/ignoreStyles';
+import 'server/lib/ignoreStyles';
 import express from 'express';
 import os from 'os';
 import config from 'config';

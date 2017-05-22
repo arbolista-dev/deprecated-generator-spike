@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import 'shared/lib/ignoreStyles';
+import 'server/lib/ignoreStyles';
 import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
