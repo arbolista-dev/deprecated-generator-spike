@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import createStore from 'shared/redux/createStore';
 import Layout from 'shared/layout';
 import storageEngine from './storageEngine';
+import i18n from './lib/i18n';
 
 if (config.get('api.fixtures')) {
   // eslint-disable-next-line global-require
@@ -17,7 +18,7 @@ const store = createStore(storageEngine);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Layout />
+      <Layout i18n={i18n} />
     </BrowserRouter>
   </Provider>,
   document.getElementById('app')

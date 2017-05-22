@@ -14,12 +14,12 @@ import createStore from 'shared/redux/createStore';
  */
 export default function renderReact(req) {
   const storageEngine = createEngine(config.get('storage.key'), req);
-  const store = createStore(history, storageEngine);
+  const store = createStore(storageEngine);
   const redirect = {};
   const renderedContent = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url} context={redirect}>
-        <Layout />
+        <Layout i18n={req.i18n} />
       </StaticRouter>
     </Provider>
   );

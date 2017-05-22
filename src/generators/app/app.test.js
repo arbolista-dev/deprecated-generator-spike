@@ -21,7 +21,8 @@ describe('spike:app', () => {
     assert.file([
       'src/server/index.js',
       'src/server/views/index.ejs',
-      'src/server/storageEngine/index.js'
+      'src/server/storageEngine/index.js',
+      'src/server/lib/ignoreStyles.js'
     ]);
     assert.file([
       'src/client/index.jsx',
@@ -31,7 +32,6 @@ describe('spike:app', () => {
     assert.file([
       'src/shared/routes/index.jsx',
       'src/shared/redux/createStore.js',
-      'src/shared/lib/ignoreStyles.js',
       'src/shared/layout/index.jsx',
       'src/shared/assets/css/main.scss',
       'src/shared/api/index.js'

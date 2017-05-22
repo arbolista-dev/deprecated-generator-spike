@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import logger from 'morgan';
 import config from 'config';
+import i18n from './lib/i18n';
 import renderReact from './renderReact';
 
 /**
@@ -30,14 +31,8 @@ const createRequestHandler = assetConfigs => (req, res) => {
   try {
     if (config.get('isomorphic')) {
       const {
-        renderedContent,
-        redirect
+        renderedContent
       } = renderReact(req);
-      if (redirect) {
-        const { url, status } = redirect;
-        res.redirect(status, url);
-        return;
-      }
       content = renderedContent;
     }
     res.set('Content-Type', 'text/html');
@@ -58,9 +53,12 @@ const createRequestHandler = assetConfigs => (req, res) => {
  */
 export default function configureApp(app, assetConfigs) {
   app.use(cookieParser());
+
   // serve public static files.a
-  const staticPath = path.resolve(__dirname, '../..', 'dist/assets');
+  const staticPath = path.resolve(__dirname, '..', 'shared/assets');
   app.use('/assets', express.static(staticPath));
+
+  app.use(i18n);
 
   app.use(logger('dev'));
 

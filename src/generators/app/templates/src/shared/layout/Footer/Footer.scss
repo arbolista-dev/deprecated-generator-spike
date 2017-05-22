@@ -1,0 +1,50 @@
+header {
+  background: #FFD846; /* For browsers that do not support gradients */
+  background: linear-gradient(to right, #FFD846, #FFC400); /* Standard syntax */
+
+  line-height: 50px;
+  height: 50px;
+  padding: 0 20px;
+  position: fixed;
+  top:0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+
+  .nav-toggle {
+    position: absolute;
+    top: 11px;
+    left: 10px;
+    color: #777;
+    font-size: 23px;
+    line-height: 23px;
+  }
+
+  .logo {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    color: #777;
+    padding-left: 20px;
+  }
+
+  .user-info {
+    line-height: 50px;
+    float: right;
+    font-size: 12px;
+
+    a {
+        font-weight: $font-weight-regular;
+    }
+  }
+
+  @include screen-med(){
+    .nav-toggle {
+        display: none;
+    }
+    .logo {
+        padding-left: 0;
+    }
+  }
+}
