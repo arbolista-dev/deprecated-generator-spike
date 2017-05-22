@@ -33,13 +33,6 @@ const createRequestHandler = assetConfigs => (req, res) => {
       const {
         renderedContent
       } = renderReact(req);
-      /*
-      FIXME: this currently creates an infinite redirect.
-      if (redirect) {
-        const { url, status } = redirect;
-        res.redirect(status, url);
-        return;
-      }*/
       content = renderedContent;
     }
     res.set('Content-Type', 'text/html');
