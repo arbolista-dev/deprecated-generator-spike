@@ -37,12 +37,12 @@ const Routes = ({ loggedIn }) => (
   </Router>
 );
 
-GetRoutesContent.propTypes = {
+Routes.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   location: PropTypes.shape({})
 };
 
-GetRoutesContent.defaultProps = {
+Routes.defaultProps = {
   location: {}
 };
 
