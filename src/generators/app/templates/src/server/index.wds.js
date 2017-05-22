@@ -7,12 +7,16 @@ import config from 'config';
 import webpackConfig from 'webpack/config.babel';
 import configureApp from './configureApp';
 
+if (config.get('api.fixtures')) {
+  // eslint-disable-next-line global-require
+  require('shared/api/fixtures');
+}
+
 const compiler = webpack(webpackConfig);
 const devServer = new WebpackDevServer(compiler, {
   historyApiFallback: true,
   contentBase: path.join(__dirname, '../..', 'dist/assets'),
   publicPath: '/assets',
-  // hot: true,
   stats: { colors: true },
   port: config.get('port')
 });

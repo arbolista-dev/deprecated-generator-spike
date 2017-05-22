@@ -1,6 +1,6 @@
-import axios from './_axios';
+import axios from './helpers/axios';
 
-export const login = (payload, options) => (
+export const login = payload => (
   axios({
     method: 'POST',
     url: '/v1/login',
@@ -9,7 +9,7 @@ export const login = (payload, options) => (
 );
 
 
-export const logout = (payload, options) => (
+export const logout = payload => (
   axios({
     method: 'POST',
     url: '/v1/logout',

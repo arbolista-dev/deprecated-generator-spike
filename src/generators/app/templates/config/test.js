@@ -1,5 +1,1 @@
-module.exports = {
-  api: {
-    fixtures: 'stub'
-  }
-};
+module.exports = {};
