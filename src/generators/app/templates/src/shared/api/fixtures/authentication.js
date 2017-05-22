@@ -1,6 +1,7 @@
+import api from 'shared/api';
 import { resolve } from './index';
 
-export const login = ({ username, password: _password }) => resolve({
+const loginSuccess = ({ username, password: _password }) => resolve({
   data: {
     user: {
       email: `${username}@example.com`,
@@ -10,4 +11,17 @@ export const login = ({ username, password: _password }) => resolve({
   }
 });
 
-export const logout = _token => resolve();
+const logoutSuccess = () => resolve();
+
+const {
+  login,
+  logout
+} = api.authentication;
+
+login.fixtures = {
+  success: loginSuccess
+};
+
+logout.fixtures = {
+  success: logoutSuccess
+};

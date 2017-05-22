@@ -1,10 +1,7 @@
 import Rx from 'rxjs';
-import * as authentication from './authentication';
+import './authentication';
 
+// eslint-disable-next-line import/prefer-default-export
 export function resolve(payload) {
   return Rx.Observable.from(Promise.resolve(payload));
 }
-
-export default {
-  authentication
-};

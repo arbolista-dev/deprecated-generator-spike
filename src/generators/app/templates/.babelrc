@@ -11,11 +11,7 @@
     "plugins": [
       "react-hot-loader/babel",
       ["module-resolver", {
-        "root": ["./src", "."],
-        "alias": {
-          "api/fixtures": "./src/shared/api/fixtures",
-          "api/http": "./src/shared/api/http"
-        }
+        "root": ["./src", "."]
       }],
       "transform-object-rest-spread"
     ]

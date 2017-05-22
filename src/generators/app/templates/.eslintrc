@@ -5,11 +5,7 @@
     "import/resolver":{
       "babel-module":{
         "config":{
-          "root": ["./src", "./"],
-          "alias": {
-            "api/fixtures": "./src/shared/api/fixtures",
-            "api/http": "./src/shared/api/http"
-          }
+          "root": ["./src", "./"]
         }
       }
     }

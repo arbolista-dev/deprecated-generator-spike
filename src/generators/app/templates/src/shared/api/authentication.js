@@ -1,4 +1,4 @@
-import axios from './_axios';
+import axios from './helpers/axios';
 
 export const login = payload => (
   axios({
@@ -9,12 +9,12 @@ export const login = payload => (
 );
 
 
-export const logout = token => (
+export const logout = payload => (
   axios({
     method: 'POST',
     url: '/v1/logout',
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${payload.token}`
     }
   })
 );
