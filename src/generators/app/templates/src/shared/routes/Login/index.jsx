@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import actions from 'shared/redux/actions';
 
 export const Login = props => (
   <div>
     <h3>Login</h3>
-    <button onClick={()=>props.login({ username: 'Bob', password: 'password' })}>Login</button>
+    <button onClick={() => props.login({ username: 'Bob', password: 'password' })}>Login</button>
   </div>
 );
 Login.propTypes = {

@@ -5,7 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import '../assets/css/main.scss';
 
-const Layout = (props) => (
+const Layout = props => (
   <I18nextProvider i18n={props.i18n}>
     <div id="root">
       <div className="wrap">
