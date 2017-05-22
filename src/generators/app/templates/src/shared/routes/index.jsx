@@ -1,53 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
-  Route,
-  Redirect,
   Switch,
-  BrowserRouter as Router
-} from 'react-router-dom';
-import { connect } from 'react-redux';
-import PrivateRoute from './PrivateRoute';
+  withRouter
+} from 'react-router';
+import CustomRoute from './CustomRoute';
 
 // Routes Components
 import Home from './Home';
-import Login from './Login';
+import LoginPage from './Login';
 import NotFoundPage from './NotFoundPage';
 
-const Routes = ({ loggedIn }) => (
-  <Router>
-    <Switch>
-      <PrivateRoute path="/" exact component={Home} loggedIn={loggedIn} />
-      <Route
-        path="/login"
-        render={props => (
-          !loggedIn
-            ? <Login {...props} />
-            :
-            <Redirect
-              to={{
-                pathname: '/',
-                state: { from: props.location }
-              }}
-            />
-        )}
-      />
-      <Route component={NotFoundPage} />
-    </Switch>
-  </Router>
+
+const Routes = () => (
+  <Switch>
+    <CustomRoute exact path="/" secure component={Home} ifSecureRedirectTo="/login" status={301} />
+    <CustomRoute path="/login" component={LoginPage} ifLoggedRedirectTo="/" status={301} />
+    <CustomRoute path="*" component={NotFoundPage} status={404} />
+  </Switch>
 );
 
-Routes.propTypes = {
-  loggedIn: PropTypes.bool.isRequired,
-  location: PropTypes.shape({})
-};
 
-Routes.defaultProps = {
-  location: {}
-};
-
-const mapStateToProps = state => ({
-  loggedIn: state.authentication.loggedIn
-});
-
-export default connect(mapStateToProps)(Routes);
+export default withRouter(Routes);

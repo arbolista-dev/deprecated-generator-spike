@@ -6,7 +6,8 @@ module.exports = {
   },
   isomorphic: false,
   storage: {
-    key: 'redux'
+    key: 'redux',
+    durationDays: 1
   },
   server: {
     renderErrorStack: true

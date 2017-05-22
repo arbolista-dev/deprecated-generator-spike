@@ -1,9 +1,12 @@
+import * as storage from 'redux-storage';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import logger from 'morgan';
 import config from 'config';
+import createStore from 'shared/redux/createStore';
 import i18n from './lib/i18n';
+import { createEngine } from './storageEngine';
 import renderReact from './renderReact';
 
 /**
@@ -29,18 +32,31 @@ function handleErr(res, err) {
 const createRequestHandler = assetConfigs => (req, res) => {
   let content = '';
   try {
+    const context = {};
     if (config.get('isomorphic')) {
-      const {
-        renderedContent
-      } = renderReact(req);
-      content = renderedContent;
+      const storageEngine = createEngine(config.get('storage.key'), req);
+      const store = createStore(storageEngine);
+      storage.createLoader(storageEngine)(store)
+        .then(() => {
+          content = renderReact(req.i18n, req.originalUrl, {}, store);
+          if (context.url) {
+            res.redirect(context.status, context.url);
+          } else {
+            res.status(200).render('index', {
+              content,
+              config,
+              assetConfigs
+            });
+          }
+        });
+    } else {
+      res.set('Content-Type', 'text/html');
+      res.render('index', {
+        content,
+        config,
+        assetConfigs
+      });
     }
-    res.set('Content-Type', 'text/html');
-    res.render('index', {
-      content,
-      config,
-      assetConfigs
-    });
   } catch (err) {
     handleErr(res, err);
   }
