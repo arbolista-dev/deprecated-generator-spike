@@ -44,7 +44,7 @@ RedirectWithStatus.propTypes = {
 };
 
 
-const CustomRoute = ({
+const SwitchRoute = ({
   path,
   component: Component,
   exact,
@@ -106,7 +106,7 @@ const CustomRoute = ({
   />
 );
 
-CustomRoute.propTypes = {
+SwitchRoute.propTypes = {
   component: PropTypes.func.isRequired,
   path: PropTypes.string,
   exact: PropTypes.bool,
@@ -117,7 +117,7 @@ CustomRoute.propTypes = {
   loggedIn: PropTypes.bool.isRequired
 };
 
-CustomRoute.defaultProps = {
+SwitchRoute.defaultProps = {
   path: '*',
   exact: false,
   secure: false,
@@ -130,4 +130,4 @@ const mapStateToProps = state => ({
   loggedIn: state.authentication.loggedIn
 });
 
-export default connect(mapStateToProps)(CustomRoute);
+export default connect(mapStateToProps)(SwitchRoute);
