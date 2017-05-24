@@ -3,7 +3,7 @@ import {
   Switch,
   withRouter
 } from 'react-router';
-import CustomRoute from './CustomRoute';
+import SwitchRoute from './SwitchRoute';
 
 // Routes Components
 import Home from './Home';
@@ -13,9 +13,9 @@ import NotFoundPage from './NotFoundPage';
 
 const Routes = () => (
   <Switch>
-    <CustomRoute exact path="/" secure component={Home} ifSecureRedirectTo="/login" status={301} />
-    <CustomRoute path="/login" component={LoginPage} ifLoggedRedirectTo="/" status={301} />
-    <CustomRoute path="*" component={NotFoundPage} status={404} />
+    <SwitchRoute exact path="/" secure component={Home} ifSecureRedirectTo="/login" status={301} />
+    <SwitchRoute path="/login" component={LoginPage} ifLoggedRedirectTo="/" status={301} />
+    <SwitchRoute path="*" component={NotFoundPage} status={404} />
   </Switch>
 );
 

@@ -9,7 +9,7 @@ import Layout from 'shared/layout';
  * based on the current route and cookies or pass redirect
  * information if react-router redirected.
  */
-export default function renderReact(i18n, location, context = {}, store) {
+export default function renderReact(i18n, location, context, store) {
   return (
     ReactDOMServer.renderToString(
       <Provider store={store}>

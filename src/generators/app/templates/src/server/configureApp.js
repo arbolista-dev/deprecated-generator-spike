@@ -38,7 +38,7 @@ const createRequestHandler = assetConfigs => (req, res) => {
       const store = createStore(storageEngine);
       storage.createLoader(storageEngine)(store)
         .then(() => {
-          content = renderReact(req.i18n, req.originalUrl, {}, store);
+          content = renderReact(req.i18n, req.originalUrl, context, store);
           if (context.url) {
             res.redirect(context.status, context.url);
           } else {
