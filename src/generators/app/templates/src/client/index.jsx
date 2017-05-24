@@ -1,3 +1,4 @@
+import * as storage from 'redux-storage';
 import config from 'config';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -13,13 +14,18 @@ if (config.get('api.fixtures')) {
   require('shared/api/fixtures');
 }
 
+const renderApp = store => (
+  ReactDOM.render(
+    <Provider store={store}>
+      <BrowserRouter>
+        <Layout i18n={i18n} />
+      </BrowserRouter>
+    </Provider>,
+    document.getElementById('app')
+  )
+);
+
 const store = createStore(storageEngine);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Layout i18n={i18n} />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById('app')
-);
+storage.createLoader(storageEngine)(store)
+  .then(() => renderApp(store));
