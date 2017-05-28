@@ -1,6 +1,6 @@
 {
   "name": "generator-spike",
-  "version": "0.0.1-alpha.2",
+  "version": "0.0.1-alpha.5",
   "description": "Generator for React apps, reducers, components, and mock api.",
   "scripts": {
     "lint": "eslint src",
@@ -8,9 +8,6 @@
     "babel": "babel",
     "build": "sh ./scripts/build.sh"
   },
-  "files": [
-    "generators"
-  ],
   "keywords": [
     "React",
     "Redux",
