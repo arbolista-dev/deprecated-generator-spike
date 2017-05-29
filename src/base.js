@@ -37,7 +37,7 @@ export default class Base extends Generator {
       });
   }
 
-  static get OPTIONS(){
+  static get OPTIONS() {
     return {};
   }
 

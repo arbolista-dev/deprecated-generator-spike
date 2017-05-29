@@ -1,6 +1,7 @@
+import path from 'path';
 import Base from '../base';
 
-export default class App extends Base {
+module.exports = class App extends Base {
 
   writing() {
     this.sourceRoot(path.join(__dirname, 'templates'));
@@ -14,4 +15,4 @@ export default class App extends Base {
       yarn: true
     });
   }
-}
+};

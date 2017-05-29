@@ -4,7 +4,7 @@ import App from './index';
 
 describe('spike:app', () => {
   beforeEach(async () => {
-    await helpers.run(App).inTmpDir();
+    await helpers.run(App);
   });
 
   it('copies the template directory', () => {

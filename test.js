@@ -6,7 +6,8 @@ const mocha = new Mocha({
   timeout: 15000
 });
 
-mocha.addFile(`${__dirname}/src/generators/app/app.test.js`);
+mocha.addFile(`${__dirname}/src/actions/actions.test.js`);
+mocha.addFile(`${__dirname}/src/app/app.test.js`);
 
 // Run the tests.
 mocha.run((failures) => {

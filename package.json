@@ -3,7 +3,7 @@
   "version": "0.0.1-alpha.6",
   "description": "Generator for React apps, reducers, components, and mock api.",
   "scripts": {
-    "lint": "eslint src",
+    "lint": "eslint src . --fix",
     "test": "npm run lint && babel-node test.js",
     "babel": "babel",
     "build": "sh ./scripts/build.sh"
