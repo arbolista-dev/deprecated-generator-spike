@@ -70,9 +70,10 @@ module.exports = class Epics extends Base {
 
   writing() {
     this.sourceRoot(path.join(__dirname, 'templates'));
+    const epicsPath = path.join('src/shared/redux/epics', this.options.epicsPath, `${this.options.filename}.js`);
     this.fs.copyTpl(
       this.templatePath('epics.ejs'),
-      this.destinationPath(`src/shared/redux/epics/${this.options.filename}.js`),
+      this.destinationPath(epicsPath),
       { epics: this.epics }
     );
   }
@@ -84,6 +85,13 @@ module.exports = class Epics extends Base {
         desc: 'Filename for new set of epics.',
         required: true,
         alias: 'f'
+      },
+      epicsPath: {
+        type: String,
+        desc: 'Path within redux epics directory.',
+        required: false,
+        alias: 'p',
+        default: ''
       }
     };
   }

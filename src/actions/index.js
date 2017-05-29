@@ -41,9 +41,10 @@ module.exports = class Actions extends Base {
 
   writing() {
     this.sourceRoot(path.join(__dirname, 'templates'));
+    const actionsPath = path.join('src/shared/redux/actions', this.options.actionsPath, `${this.options.filename}.js`);
     this.fs.copyTpl(
       this.templatePath('action.ejs'),
-      this.destinationPath(`src/shared/redux/actions/${this.options.filename}.js`),
+      this.destinationPath(actionsPath),
       { actions: this.actions }
     );
   }
@@ -55,6 +56,13 @@ module.exports = class Actions extends Base {
         desc: 'Filename for new set of actions.',
         required: true,
         alias: 'f'
+      },
+      actionsPath: {
+        type: String,
+        desc: 'Path within redux actions directory.',
+        required: false,
+        alias: 'p',
+        default: ''
       }
     };
   }
