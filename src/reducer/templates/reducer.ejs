@@ -1,0 +1,12 @@
+import { createReducer } from 'redux-act';
+import actions from 'shared/redux/actions';
+
+export default createReducer({
+  <% actionPaths.forEach((actionPath)=>{ %>[actions.<%= actionPath %>.getType()]: (state, payload) => ({
+    ...state,
+  }),
+  <% }); %>
+}, { 
+  <% values.forEach((value) => { %><%= value.name %>: <%- value.default %>,
+  <% }); %> 
+});

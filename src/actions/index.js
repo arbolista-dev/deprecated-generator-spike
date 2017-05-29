@@ -1,7 +1,7 @@
 import path from 'path';
 import Base from '../base';
 
-module.exports = class App extends Base {
+module.exports = class Actions extends Base {
 
   async _promptActionData() {
     const answers = await this.prompt([
@@ -14,7 +14,7 @@ module.exports = class App extends Base {
         name: 'description',
         message: 'action description (passed to redux-act)'
       }, {
-        type: 'checkbox',
+        type: 'list',
         message: 'Add more actions?',
         name: 'more',
         choices: [

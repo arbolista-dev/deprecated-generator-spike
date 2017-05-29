@@ -1,4 +1,6 @@
 import Mocha from 'mocha';
+import fs from 'fs';
+import path from 'path';
 
 // Instantiate a Mocha instance.
 const mocha = new Mocha({
@@ -6,8 +8,23 @@ const mocha = new Mocha({
   timeout: 15000
 });
 
-mocha.addFile(`${__dirname}/src/actions/actions.test.js`);
-mocha.addFile(`${__dirname}/src/app/app.test.js`);
+function addDirectory(testDir, exclude, regex = /\.test\.jsx?$/) {
+  // Add each .js file to the mocha instance
+  fs.readdirSync(testDir)
+    .forEach((file) => {
+      const filePath = path.resolve(testDir, file);
+      if (exclude.test(filePath)) return true;
+      if (fs.statSync(filePath).isDirectory()) {
+        addDirectory(filePath, exclude, regex);
+      } else if (regex.test(file)) {
+        // Only add the test.js files
+        mocha.addFile(filePath);
+      }
+      return true;
+    });
+}
+
+addDirectory(path.resolve(__dirname, 'src'), /templates/);
 
 // Run the tests.
 mocha.run((failures) => {
