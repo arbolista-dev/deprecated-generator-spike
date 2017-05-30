@@ -76,6 +76,24 @@ module.exports = class Epics extends Base {
       this.destinationPath(epicsPath),
       { epics: this.epics }
     );
+    if (this.options.includeTests) {
+      const filename = this.options.filename;
+      let epicsName = filename;
+      if (epicsName === 'index') {
+        const paths = this.options.reducerPath.split('/');
+        epicsName = paths[paths.length - 1];
+      }
+      const testPath = path.join('src/shared/redux/epics', this.options.epicsPath, `${epicsName}.test.js`);
+      this.fs.copyTpl(
+        this.templatePath('epics.test.ejs'),
+        this.destinationPath(testPath),
+        {
+          epics: this.epics,
+          filename,
+          epicsName
+        }
+      );
+    }
   }
 
   static get OPTIONS() {
@@ -92,6 +110,13 @@ module.exports = class Epics extends Base {
         required: false,
         alias: 'p',
         default: ''
+      },
+      includeTests: {
+        type: Number,
+        desc: 'Include tests with epics? 0 for false, 1 for true.',
+        required: false,
+        default: 0,
+        alias: 't'
       }
     };
   }

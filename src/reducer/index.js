@@ -69,6 +69,24 @@ module.exports = class Reducers extends Base {
       this.destinationPath(reducerPath),
       { actionPaths: this.actionPaths, values: this.values }
     );
+    if (this.options.includeTests) {
+      const filename = this.options.filename;
+      let reducerName = filename;
+      if (reducerName === 'index') {
+        const paths = this.options.reducerPath.split('/');
+        reducerName = paths[paths.length - 1];
+      }
+      const testPath = path.join('src/shared/redux/reducers', this.options.reducerPath, `${reducerName}.test.js`);
+      this.fs.copyTpl(
+        this.templatePath('reducer.test.ejs'),
+        this.destinationPath(testPath),
+        {
+          actionPaths: this.actionPaths,
+          filename,
+          reducerName
+        }
+      );
+    }
   }
 
   static get OPTIONS() {
@@ -84,6 +102,13 @@ module.exports = class Reducers extends Base {
         desc: 'Path within reducers directory.',
         required: false,
         alias: 'p'
+      },
+      includeTests: {
+        type: Number,
+        desc: 'Include tests with reducer? 0 for false, 1 for true.',
+        required: false,
+        default: 0,
+        alias: 't'
       }
     };
   }

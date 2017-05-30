@@ -20,7 +20,8 @@ describe('spike:reducer', () => {
     await helpers.run(Reducer)
       .withOptions({
         filename: 'index',
-        reducerPath: 'something'
+        reducerPath: 'something',
+        includeTests: 1
       });
   });
   after(() => {
@@ -29,7 +30,8 @@ describe('spike:reducer', () => {
 
   it('copies the template directory', () => {
     assert.file([
-      'src/shared/redux/reducers/something/index.js'
+      'src/shared/redux/reducers/something/index.js',
+      'src/shared/redux/reducers/something/something.test.js'
     ]);
     const imports =
 `import { createReducer } from 'redux-act';
@@ -50,9 +52,53 @@ import actions from 'shared/redux/actions';`;
    
 });`;
 
+    const test =
+`import actions from 'shared/redux/actions';
+import { expect } from 'chai';
+import something from './index';
+
+describe('something reducer', () => {
+  describe('actions.user.juggle', () => {
+    it('correctly updates state', () => {
+      const originalState = {
+        // insert original state here
+      };
+      const result = something(originalState, actions.user.juggle({
+        // insert payload here
+      }));
+      expect(result).to.deep.equal({
+        // assert new expected state
+      });
+      // assert immutability
+      expect(originalState).to.deep.equal({
+        // insert original state here
+      });
+    });
+  });
+  describe('actions.authentication.login', () => {
+    it('correctly updates state', () => {
+      const originalState = {
+        // insert original state here
+      };
+      const result = something(originalState, actions.authentication.login({
+        // insert payload here
+      }));
+      expect(result).to.deep.equal({
+        // assert new expected state
+      });
+      // assert immutability
+      expect(originalState).to.deep.equal({
+        // insert original state here
+      });
+    });
+  });
+  
+});`;
+
     assert.fileContent([
       ['src/shared/redux/reducers/something/index.js', imports],
-      ['src/shared/redux/reducers/something/index.js', reducer]
+      ['src/shared/redux/reducers/something/index.js', reducer],
+      ['src/shared/redux/reducers/something/something.test.js', test]
     ]);
   });
 });
