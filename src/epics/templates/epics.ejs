@@ -1,0 +1,21 @@
+import Rx from 'rxjs';
+import actions from 'shared/redux/actions';
+<% if (epics.some(epic => epic.type === 'ajax')){ %>import api from 'shared/api';<% } %>
+<% epics.forEach((epic) => { %><% if (epic.type === 'ajax') { %>
+const <%= epic.name %> = (action$, _store, exec = api.<%= epic.apiPath %>) =>
+  action$.ofType(actions.<%= epic.actionPath %>.getType())
+    .mergeMap(action => exec(action.payload)
+          .map(response => actions.<%= epic.successActionPath %>(response))
+          .catch(error => Rx.Observable.of(actions.<%= epic.errorActionPath %>(error))));
+<% } else { %>
+const <%= epic.name %> = (action$, _store) =>
+  action$.ofType(actions.<%= epic.actionPath %>.getType())
+    .mergeMap(action => {
+      // Do stuff with your action here.
+      // If you have another epic pattern you would like us to include,
+      // feel free to open up an issue at https://github.com/arbolista-dev/generator-spike/issues
+    });<% } }); %>
+
+export default [<% epics.forEach((epic) => { %>
+  <%= epic.name %>,<% }); %>
+];

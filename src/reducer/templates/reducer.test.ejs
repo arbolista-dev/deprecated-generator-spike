@@ -1,0 +1,24 @@
+import actions from 'shared/redux/actions';
+import { expect } from 'chai';
+import <%= reducerName %> from './<%= filename %>';
+
+describe('<%= reducerName %> reducer', () => {
+  <% actionPaths.forEach((actionPath)=>{ %>describe('actions.<%= actionPath %>', () => {
+    it('correctly updates state', () => {
+      const originalState = {
+        // insert original state here
+      };
+      const result = <%= reducerName %>(originalState, actions.<%= actionPath %>({
+        // insert payload here
+      }));
+      expect(result).to.deep.equal({
+        // assert new expected state
+      });
+      // assert immutability
+      expect(originalState).to.deep.equal({
+        // insert original state here
+      });
+    });
+  });
+  <% }); %>
+});

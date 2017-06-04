@@ -9,9 +9,9 @@
     "dev": "NODE_ENV=development FIXTURES=1 WDS=1 babel-node ./src/server/index.wds.js",
     "dev:server": "ISOMORPHIC=1 NODE_ENV=development FIXTURES=1 WDS=1 babel-watch ./src/server/index.wds.js",
     "start": "node ./dist/server/index.js",
-    "build:server": "babel src/shared -d dist/shared --ignore test.js && babel src/server -d dist/server --ignore wds.js,test.js,src/server/test && sh ./copyServerFiles.sh",
-    "build:client": "webpack --config webpack/config.babel.js",
-    "build": "npm run build:client && npm run build:server",
+    "babel": "babel",
+    "webpack": "webpack",
+    "build": "sh ./scripts/build-client.sh && sh ./scripts/build-server.sh",
     "test": "babel-node test.js"
   },
   "pre-commit": [

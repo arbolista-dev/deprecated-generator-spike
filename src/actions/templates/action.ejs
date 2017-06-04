@@ -1,0 +1,3 @@
+import { createAction } from 'redux-act';
+<% for(var i=0; i<actions.length; i++) {%>
+export const <%= actions[i].name %> = createAction('<%= actions[i].description %>');<% } %>
