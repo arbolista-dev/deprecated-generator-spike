@@ -11,5 +11,8 @@
         "root": ["./src", "."]
       }],
       "transform-object-rest-spread"
+    ],
+    "ignore": [
+      "**/fixtures"
     ]
 }

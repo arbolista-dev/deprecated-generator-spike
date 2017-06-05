@@ -1,0 +1,7 @@
+<% pages.forEach(page => { %>import * as <%= page.name %> from './<%= page.name %>';
+<% }); %>
+
+export default {
+  <% pages.forEach(page => { %><%= page.name %>,
+  <% }); %>
+};

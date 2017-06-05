@@ -1,0 +1,5 @@
+{
+  "*": {
+    "integrationTests": true
+  }
+}
