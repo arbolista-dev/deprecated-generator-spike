@@ -3,6 +3,15 @@ import Base from '../base';
 
 module.exports = class IntegrationTests extends Base {
 
+  /**
+   * Initializing
+   */
+
+  intializing() {
+    // FIXME: For some reason, unit tests config namespace is "*".
+    this.config.name = 'generator-spike';
+  }
+
   /*
    * Prompting
    */
