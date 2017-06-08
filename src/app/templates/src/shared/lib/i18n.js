@@ -14,7 +14,7 @@ export const initializeI18n = (middlewares, init) => {
     ns: ['common'],
     defaultNS: 'common',
     debug: config.get('i18n.debug'),
-
+    detectLngQS: 'lng',
     interpolation: {
       escapeValue: false, // not needed for react!!
       formatSeparator: ',',

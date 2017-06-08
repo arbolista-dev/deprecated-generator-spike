@@ -18,7 +18,8 @@ const devServer = new WebpackDevServer(compiler, {
   contentBase: path.join(__dirname, '../..', 'dist/assets'),
   publicPath: '/assets',
   stats: { colors: true },
-  port: config.get('port')
+  port: config.get('port'),
+  disableHostCheck: true
 });
 const { app } = devServer;
 

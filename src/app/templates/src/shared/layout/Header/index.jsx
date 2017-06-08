@@ -4,9 +4,10 @@ import container from './Header.container';
 
 
 const userHeader = (user, logout) => (
-  <div className="user-info">
+  <div id="Welcome" className="user-info">
     Welcome {user.attributes.username} <span>- </span>
     <button
+      id="LogoutButton"
       onClick={() => { logout(); }}
     >Logout</button>
   </div>

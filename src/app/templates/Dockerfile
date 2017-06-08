@@ -22,5 +22,4 @@ RUN yarn
 COPY . .
 
 RUN npm run lint
-RUN npm run build
-ENTRYPOINT npm run test:integration
+CMD npm run dev:server

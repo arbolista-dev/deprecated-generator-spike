@@ -1,6 +1,8 @@
+cd "${0%/*}" && cd ..
 rm -r dist || mkdir dist
-npm run babel -- src -d dist --ignore test.js,templates/
-cp -r src/app/templates dist/app/templates
-cp -r src/actions/templates dist/actions/templates
+cd src
+rsync --exclude **/dist --exclude **/node_modules --recursive --relative **/templates ../dist
+cd ..
+npm run babel -- src -d dist --ignore test.js,templates/,fixtures/
 cp package.json dist
 cp README.md dist

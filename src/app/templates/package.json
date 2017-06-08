@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint . --fix",
     "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
-    "dev": "NODE_ENV=development WDS=1 babel-node ./src/server/index.wds.js",
-    "dev:server": "ISOMORPHIC=1 NODE_ENV=development WDS=1 babel-watch ./src/server/index.wds.js",
+    "dev": "NODE_ENV=development FIXTURES=1 WDS=1 babel-node ./src/server/index.wds.js",
+    "dev:server": "ISOMORPHIC=1 FIXTURES=1 NODE_ENV=development WDS=1 babel-node ./src/server/index.wds.js",
     "start": "node ./dist/server/index.js",
     "babel": "babel",
     "webpack": "webpack",

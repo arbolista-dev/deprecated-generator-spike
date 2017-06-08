@@ -17,15 +17,15 @@ module.exports = class IntegrationTests extends Base {
    */
 
   async prompting() {
+    this.answers = {
+      pages: [],
+      tests: []
+    };
     if (!this.config.get('integrationTests')) {
       await this._promptConfig();
     } else {
-      this.log.info('You integration test scaffolding has already been created.');
+      this.log.info('Your integration test scaffolding has already been created.');
     }
-    this.answers = {
-      pages: [],
-      actions: []
-    };
     return this._promptPagesAndTests();
   }
 
@@ -89,16 +89,38 @@ module.exports = class IntegrationTests extends Base {
       {
         type: 'input',
         name: 'name',
-        message: 'Name of page (used as filename and accessor from \'pages\' object within tests). We suggest using CapitalCamelCase.'
+        message: 'Name of page (used as filename and accessor from \'pages\' object within tests).'
       }, {
         type: 'input',
         name: 'pathname',
-        message: 'What URL path can access this page?'
+        message: 'Page URL?'
       }]);
 
-      // TODO
-    page.actions = await this._promptActions(page, []);
-    page.validations = await this._promptValidations(page, []);
+    const { addActions } = await this.prompt([
+      {
+        type: 'list',
+        name: 'addActions',
+        message: 'Add some DOM operations to this page?',
+        choices: [
+          { name: 'Yes', value: true },
+          { name: 'No', value: false }
+        ]
+      }
+    ]);
+    if (addActions) page.actions = await this._promptActions(page, []);
+
+    const { addValidations } = await this.prompt([
+      {
+        type: 'list',
+        name: 'addValidations',
+        message: 'Add some DOM validations to this page?',
+        choices: [
+          { name: 'Yes', value: true },
+          { name: 'No', value: false }
+        ]
+      }
+    ]);
+    if (addValidations) page.validations = await this._promptValidations(page, []);
 
     this.answers.pages.push(page);
 
@@ -120,6 +142,62 @@ module.exports = class IntegrationTests extends Base {
     return undefined;
   }
 
+  async _promptActions(page, actions) {
+    const { action } = await this.prompt([
+      {
+        type: 'input',
+        name: 'action',
+        message: 'Name of DOM operation.'
+      }]);
+
+    actions.push(action);
+
+    const { more } = await this.prompt([
+      {
+        type: 'list',
+        message: 'Add more DOM operations to this page?',
+        name: 'more',
+        choices: [
+          { name: 'Yes', value: true },
+          { name: 'No', value: false }
+        ]
+      }
+    ]);
+
+    if (more) {
+      return this._promptActions(page, actions);
+    }
+    return actions;
+  }
+
+  async _promptValidations(page, validations) {
+    const { validation } = await this.prompt([
+      {
+        type: 'input',
+        name: 'validation',
+        message: 'Name of DOM validation.'
+      }]);
+
+    validations.push(validation);
+
+    const { more } = await this.prompt([
+      {
+        type: 'list',
+        message: 'Add more DOM validations to this page?',
+        name: 'more',
+        choices: [
+          { name: 'Yes', value: true },
+          { name: 'No', value: false }
+        ]
+      }
+    ]);
+
+    if (more) {
+      return this._promptValidations(page, validations);
+    }
+    return validations;
+  }
+
   async _promptTests() {
     const test = await this.prompt([
       {
@@ -129,7 +207,7 @@ module.exports = class IntegrationTests extends Base {
       }, {
         type: 'input',
         name: 'pageName',
-        message: 'Accessor from \'pages\' accessor'
+        message: 'Page name (\'pages\' accessor).'
       }, {
         type: 'input',
         name: 'description',

@@ -1,6 +1,11 @@
 [![Build Status](https://travis-ci.org/arbolista-dev/generator-spike.svg?branch=develop)](https://travis-ci.org/arbolista-dev/generator-spike)
 [![Code Climate](https://codeclimate.com/github/arbolista-dev/generator-spike/badges/gpa.svg)](https://codeclimate.com/github/arbolista-dev/generator-spike)
+
 [![NPM](https://nodei.co/npm/generator-spike.png)](https://npmjs.org/package/generator-spike)
+
+# What
+
+
 
 # Why
 
@@ -11,6 +16,8 @@ React it is not a framework. There do exist a number of scaffoldings, but we aim
 - Support CSS modules out of the box.
 - Support for running webpack dev server and compiling a production app and server right out of the box.
 - Best Redux practices with support for development and production logging. Read your frontend logs like you read your server logs!
+
+# How
 
 # Redux Dependencies
 

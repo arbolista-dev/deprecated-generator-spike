@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  hub:
+    image: selenium/hub:latest
+    ports:
+    - 4444:4444
+  chrome:
+    image: selenium/node-chrome-debug:latest
+    depends_on:
+    - hub
+    ports:
+    - 5900:5900
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      no_proxy: localhost
+      HUB_ENV_no_proxy: localhost
+  firefox:
+    image: selenium/node-firefox-debug:latest
+    depends_on:
+    - hub
+    ports:
+    - 5901:5900
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      no_proxy: localhost
+      HUB_ENV_no_proxy: localhost
+  app:
+    image: "spike-example:${BUILD_TAG}"
+    build: src/app/templates
+    ports:
+    - 3000:3000
+  integration:
+    image: "spike:${BUILD_TAG}"
+    build: .
+    command: npm run test:integration
+    depends_on:
+    - app
+    - hub
+    environment:
+      INTEGRATION_TESTS_ORIGIN: http://app:3000
+      INTEGRATION_TESTS_BROWSER: chrome
+      SELENIUM_REMOTE_URL: http://hub:4444/wd/hub
+    volumes:
+      - ./:/app
