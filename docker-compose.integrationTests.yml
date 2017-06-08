@@ -29,7 +29,7 @@ services:
       HUB_ENV_no_proxy: localhost
   app:
     image: "spike-example:${BUILD_TAG}"
-    build: src/app/templates
+    build: tmp/
     ports:
     - 3000:3000
   integration:
