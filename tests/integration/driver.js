@@ -11,7 +11,6 @@ export async function createSeleniumInstance() {
 }
 
 export const getDriver = (() => driver);
-export const closeDriver = (() => driver.close());
 
 /**
 * This function opens a URL on browser and returns the driver.

@@ -6,7 +6,7 @@ services:
     ports:
     - 4444:4444
   chrome:
-    image: selenium/node-chrome-debug:latest
+    image: selenium/node-chrome:latest
     depends_on:
     - hub
     ports:
@@ -17,7 +17,7 @@ services:
       no_proxy: localhost
       HUB_ENV_no_proxy: localhost
   firefox:
-    image: selenium/node-firefox-debug:latest
+    image: selenium/node-firefox:latest
     depends_on:
     - hub
     ports:

@@ -13,6 +13,7 @@
       "transform-object-rest-spread"
     ],
     "ignore": [
-      "**/fixtures"
+      "**/fixtures",
+      "**/templates"
     ]
 }

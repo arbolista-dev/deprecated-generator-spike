@@ -21,5 +21,6 @@ RUN yarn
 
 COPY . .
 
-RUN npm run lint
-CMD npm run dev:server
+RUN npm run test
+RUN npm run build
+CMD npm start

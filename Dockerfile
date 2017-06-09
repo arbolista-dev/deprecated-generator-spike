@@ -21,6 +21,7 @@ RUN yarn
 
 COPY . .
 
-RUN npm run lint
+RUN npm run test
 RUN npm run build
+RUN sh ./scripts/createExampleApp
 ENTRYPOINT npm run test:integration

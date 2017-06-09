@@ -5,7 +5,7 @@ import assert from 'yeoman-assert';
 import { assertFixtureMatch } from 'testUtils';
 import IntegrationTests from './index';
 
-describe('spike:integrationTests', () => {
+describe.skip('spike:integrationTests', () => {
   const { prompting } = IntegrationTests.prototype;
   after(() => {
     IntegrationTests.prototype.prompting = prompting;
