@@ -3,30 +3,23 @@ import Base from '../base';
 
 module.exports = class App extends Base {
 
-  configuring() {
-    this.destinationRoot(this.options.destinationRoot);
-  }
-
   writing() {
+    this.destinationRoot(this.options.destinationRoot);
     this.sourceRoot(path.join(__dirname, 'templates'));
-    this.copy(
-      this.templatePath('.seedApp'),
-      this.destinationPath('.seedApp')
-    );
-    // this._copyDirectoryDeep(this.sourceRoot(), { exclude: /(node_modules|dist)$/ });
+    this._copyDirectoryDeep(this.sourceRoot(), { exclude: /(node_modules|dist)$/ });
   }
 
   install() {
     this.installDependencies({
-      npm: false,
+      npm: true,
       bower: false,
-      yarn: true
+      yarn: false
     });
   }
 
   static get OPTIONS() {
     return {
-      destinationRoote: {
+      destinationRoot: {
         type: String,
         desc: 'Destination path for app relative to CWD.',
         required: false,
