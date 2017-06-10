@@ -1,5 +1,8 @@
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
+import path from 'path';
+import os from 'os';
+import { assertFixtureMatch } from 'testUtils';
 import Reducer from './index';
 
 describe('spike:reducer', () => {
@@ -18,6 +21,7 @@ describe('spike:reducer', () => {
   });
   beforeEach(async () => {
     await helpers.run(Reducer)
+      .inDir(path.join(os.tmpdir(), 'tmp'))
       .withOptions({
         filename: 'index',
         reducerPath: 'something',
@@ -28,77 +32,15 @@ describe('spike:reducer', () => {
     Reducer.prototype._promptReducerActions = _promptReducerActions;
   });
 
-  it('copies the template directory', () => {
+  it('copies the template directory', async () => {
     assert.file([
       'src/shared/redux/reducers/something/index.js',
       'src/shared/redux/reducers/something/something.test.js'
     ]);
-    const imports =
-`import { createReducer } from 'redux-act';
-import actions from 'shared/redux/actions';`;
 
-    const reducer =
-`export default createReducer({
-  [actions.user.juggle.getType()]: (state, payload) => ({
-    ...state,
-  }),
-  [actions.authentication.login.getType()]: (state, payload) => ({
-    ...state,
-  }),
-  
-}, { 
-  token: null,
-  username: 'User',
-   
-});`;
-
-    const test =
-`import actions from 'shared/redux/actions';
-import { expect } from 'chai';
-import something from './index';
-
-describe('something reducer', () => {
-  describe('actions.user.juggle', () => {
-    it('correctly updates state', () => {
-      const originalState = {
-        // insert original state here
-      };
-      const result = something(originalState, actions.user.juggle({
-        // insert payload here
-      }));
-      expect(result).to.deep.equal({
-        // assert new expected state
-      });
-      // assert immutability
-      expect(originalState).to.deep.equal({
-        // insert original state here
-      });
-    });
-  });
-  describe('actions.authentication.login', () => {
-    it('correctly updates state', () => {
-      const originalState = {
-        // insert original state here
-      };
-      const result = something(originalState, actions.authentication.login({
-        // insert payload here
-      }));
-      expect(result).to.deep.equal({
-        // assert new expected state
-      });
-      // assert immutability
-      expect(originalState).to.deep.equal({
-        // insert original state here
-      });
-    });
-  });
-  
-});`;
-
-    assert.fileContent([
-      ['src/shared/redux/reducers/something/index.js', imports],
-      ['src/shared/redux/reducers/something/index.js', reducer],
-      ['src/shared/redux/reducers/something/something.test.js', test]
-    ]);
+    await Promise.all([
+      'src/shared/redux/reducers/something/something.test.js',
+      'src/shared/redux/reducers/something/index.js'
+    ].map(filepath => assertFixtureMatch(filepath, path.resolve(__dirname, 'fixtures/tc1', filepath))));
   });
 });

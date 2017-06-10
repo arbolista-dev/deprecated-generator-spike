@@ -4,8 +4,9 @@
   "description": "Generator for React apps, reducers, components, and mock api.",
   "scripts": {
     "lint": "eslint src . --fix",
-    "test": "babel-node test.js",
+    "test": "npm run lint && babel-node test.js",
     "test:integration": "babel-node tests/integration/index.js",
+    "copy:templates": "babel-node copyTemplates.js",
     "babel": "babel",
     "build": "sh ./scripts/build.sh"
   },

@@ -16,19 +16,8 @@ services:
       HUB_PORT_4444_TCP_PORT: 4444
       no_proxy: localhost
       HUB_ENV_no_proxy: localhost
-  firefox:
-    image: selenium/node-firefox:latest
-    depends_on:
-    - hub
-    ports:
-    - 5901:5900
-    environment:
-      HUB_PORT_4444_TCP_ADDR: hub
-      HUB_PORT_4444_TCP_PORT: 4444
-      no_proxy: localhost
-      HUB_ENV_no_proxy: localhost
   spike:
-    image: "spike:${BUILD_TAG}"
+    image: "spike:${BRANCH_NAME}_${BUILD_NUMBER}"
     build: .
     depends_on:
     - hub
@@ -36,5 +25,3 @@ services:
       INTEGRATION_TESTS_ORIGIN: http://spike:3000
       INTEGRATION_TESTS_BROWSER: chrome
       SELENIUM_REMOTE_URL: http://hub:4444/wd/hub
-    volumes:
-      - ./:/app

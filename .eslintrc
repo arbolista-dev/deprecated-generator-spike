@@ -20,7 +20,8 @@
     "no-unused-vars": ["error", {"argsIgnorePattern": "^_"}],
     "no-console": ["error", { "allow": ["warn", "error", "info"] }],
     "indent": ["error", 2],
-    "no-underscore-dangle": 0
+    "no-underscore-dangle": 0,
+    "import/no-extraneous-dependencies": 0
   }
 }
 

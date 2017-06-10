@@ -3,6 +3,7 @@ import path from 'path';
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
 import { assertFixtureMatch } from 'testUtils';
+import os from 'os';
 import IntegrationTests from './index';
 
 describe.skip('spike:integrationTests', () => {
@@ -15,7 +16,7 @@ describe.skip('spike:integrationTests', () => {
     before(() => {
       IntegrationTests.prototype.prompting = async function promptingStub() {
         // eslint-disable-next-line no-template-curly-in-string
-        const config = { frontendPort: 3000, dockerImageName: 'yada', dockerImageTag: '${BUILD_NUMBER}' };
+        const yoConfig = { frontendPort: 3000, dockerImageName: 'yada', dockerImageTag: '${BUILD_NUMBER}' };
         const pages = [
           { name: 'Home', pathname: '/', actions: ['jumps', 'dances'], validations: ['expectSpinner'] },
           { name: 'Login', pathname: '/login', actions: ['laughs', 'cries'], validations: ['expectSpinner'] }
@@ -24,11 +25,12 @@ describe.skip('spike:integrationTests', () => {
           { pageName: 'Home', description: 'base cases', filename: 'HomeBaseCases', assertions: ['jumps', 'dances'] },
           { pageName: 'Login', description: 'base cases', filename: 'LoginBaseCases', assertions: ['laughs', 'cries'] }
         ];
-        this.answers = { pages, tests, config };
+        this.answers = { pages, tests, config: yoConfig };
       };
     });
     it('can create scaffolding, new pages, and new actions.', async () => {
-      await helpers.run(IntegrationTests);
+      await helpers.run(IntegrationTests)
+        .inDir(path.join(os.tmpdir(), 'tmp'));
       await Promise.all([
         '.yo-rc.json',
         '.dockerignore',
