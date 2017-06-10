@@ -9,7 +9,11 @@ module.exports = class App extends Base {
 
   writing() {
     this.sourceRoot(path.join(__dirname, 'templates'));
-    this._copyDirectoryDeep(this.sourceRoot(), { exclude: /(node_modules|dist)$/ });
+    this.copy(
+      this.templatePath('.seedApp'),
+      this.destinationPath('.seedApp')
+    );
+    // this._copyDirectoryDeep(this.sourceRoot(), { exclude: /(node_modules|dist)$/ });
   }
 
   install() {
