@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/arbolista-dev/generator-spike.svg?branch=develop)](https://travis-ci.org/arbolista-dev/generator-spike)
-[![Code Climate](https://codeclimate.com/github/arbolista-dev/generator-spike/badges/gpa.svg)](https://codeclimate.com/github/arbolista-dev/generator-spike)
 
 [![NPM](https://nodei.co/npm/generator-spike.png)](https://npmjs.org/package/generator-spike)
 
