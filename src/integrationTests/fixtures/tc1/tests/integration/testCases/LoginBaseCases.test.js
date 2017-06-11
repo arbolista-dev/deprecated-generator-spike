@@ -1,17 +1,9 @@
-import config from 'config';
-import openUrl from 'tests/integration/openUrl';
-import { expect } from 'chai';
-import pages from 'tests/integration/pages';
+import * as pages from 'tests/integration/pages';
 
-// use driver and page actions and validations: https://seleniumhq.github.io/selenium/docs/api/javascript/
+// use page actions and validations to assert test case behavior.
 describe('Login base cases', () => {
-  let driver;
   beforeEach(async () => {
-    driver = await pages.Login.open();
-  });
-
-  afterEach(async () => {
-    await driver.close();
+    await pages.Login.open();
   });
 
   it('laughs', async () => {

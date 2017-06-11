@@ -33,5 +33,5 @@ services:
     depends_on:
     - hub
     environment:
-      BROWSER_ORIGIN: http://localhost:3000
+      BROWSER_ORIGIN: http://app:3000
       SELENIUM_REMOTE_URL: http://hub:4444/wd/hub

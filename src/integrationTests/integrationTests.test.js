@@ -6,7 +6,7 @@ import { assertFixtureMatch } from 'testUtils';
 import os from 'os';
 import IntegrationTests from './index';
 
-describe.skip('spike:integrationTests', () => {
+describe('spike:integrationTests', () => {
   const { prompting } = IntegrationTests.prototype;
   after(() => {
     IntegrationTests.prototype.prompting = prompting;
@@ -35,9 +35,11 @@ describe.skip('spike:integrationTests', () => {
         '.yo-rc.json',
         '.dockerignore',
         'Dockerfile',
+        'docker-compose.ci.yml',
         'docker-compose.integrationTests.yml',
+        'tests/integration/_setup.js',
         'tests/integration/index.js',
-        'tests/integration/openUrl.js',
+        'tests/integration/driver.js',
         'tests/integration/pages/base.js',
         'tests/integration/pages/index.js',
         'tests/integration/pages/Home/index.js',

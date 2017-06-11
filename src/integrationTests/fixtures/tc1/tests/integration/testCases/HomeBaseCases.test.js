@@ -1,11 +1,9 @@
-describe('Home base cases', () => {
-  let driver;
-  beforeEach(async () => {
-    driver = await pages.Home.open();
-  });
+import * as pages from 'tests/integration/pages';
 
-  afterEach(async () => {
-    await driver.close();
+// use page actions and validations to assert test case behavior.
+describe('Home base cases', () => {
+  beforeEach(async () => {
+    await pages.Home.open();
   });
 
   it('jumps', async () => {

@@ -278,10 +278,12 @@ module.exports = class IntegrationTests extends Base {
   async _writeScaffolding() {
     [
       '.dockerignore',
+      'docker-compose.ci.yml.ejs',
       'docker-compose.integrationTests.yml.ejs',
       'Dockerfile.ejs',
+      'tests/integration/_setup.js',
       'tests/integration/index.js',
-      'tests/integration/openUrl.js',
+      'tests/integration/driver.js',
       'tests/integration/pages/base.js',
       'tests/integration/pages/index.js.ejs'
     ].forEach((templateName) => {
@@ -334,7 +336,7 @@ module.exports = class IntegrationTests extends Base {
    */
 
   async installing() {
-    this.yarnInstall(['selenium-webdriver']);
+    this.npmInstall(['selenium-webdriver', 'yargs']);
   }
 
 };

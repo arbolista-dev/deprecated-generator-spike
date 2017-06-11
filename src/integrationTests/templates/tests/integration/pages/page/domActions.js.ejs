@@ -1,7 +1,9 @@
 import { By } from 'selenium-webdriver';
 import until from 'selenium-webdriver/lib/until';
+import { getDriver } from 'tests/integration/driver';
 
-<% page.actions.forEach(action => { %>export async function <%= action %>(){
+// See for driver docs https://seleniumhq.github.io/selenium/docs/api/javascript/
+<% page.actions.forEach(action => { %>export async function <%= action %>(wait = 2500){
 
 }
 <% }); %>

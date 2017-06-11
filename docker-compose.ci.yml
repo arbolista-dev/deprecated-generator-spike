@@ -17,7 +17,7 @@ services:
       no_proxy: localhost
       HUB_ENV_no_proxy: localhost
   spike:
-    image: "spike:${BRANCH_NAME}_${BUILD_NUMBER}"
+    image: "spike:${TRAVIS_BRANCH}_${TRAVIS_PULL_REQUEST}"
     build: .
     depends_on:
     - hub

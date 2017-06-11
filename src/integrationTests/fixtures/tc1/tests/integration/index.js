@@ -9,10 +9,10 @@ function addDirectory(mocha, testDir, regex = /\.test\.js$/) {
     .forEach((file) => {
       const filePath = path.resolve(testDir, file);
       if (fs.statSync(filePath).isDirectory()) {
-        return addDirectory(mocha, filePath, regex);
+        addDirectory(mocha, filePath, regex);
+      } else if (regex.test(file)) {
+        mocha.addFile(filePath);
       }
-
-      if (regex.test(file)) mocha.addFile(filePath);
     });
 }
 
@@ -21,15 +21,16 @@ function testRunner(opts) {
 
   const setup = {
     ui: 'bdd',
-    timeout: 100000,
+    timeout: 60000
   };
   if (opts.grep) setup.grep = opts.grep;
   if (opts.invert) setup.invert = opts.invert;
 
   // Instantiate a Mocha instance.
   const mocha = new Mocha(setup);
+  mocha.addFile(path.join(__dirname, '_setup.js'));
   // Include all tests in tests/integration.
-  addDirectory(mocha, __dirname);
+  addDirectory(mocha, path.join(__dirname, 'testCases'));
 
   // Run the tests.
   mocha.run((failures) => {
@@ -37,27 +38,26 @@ function testRunner(opts) {
   });
 }
 
-// Config yargs
 help();
 alias('h', 'help');
 options({
   browser: {
     alias: 'b',
     describe: 'Browser used by the automated test (chrome or firefox)',
-    default: 'chrome',
+    default: 'chrome'
   },
   grep: {
     alias: 'g',
     type: 'string',
     describe: 'Mocha grep option.',
-    default: '',
+    default: ''
   },
   invert: {
     alias: 'i',
     type: 'boolean',
     describe: 'Mocha invert option',
-    default: false,
-  },
+    default: false
+  }
 });
 
 testRunner(argv);

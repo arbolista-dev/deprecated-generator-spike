@@ -2,14 +2,9 @@ sudo: required
 services:
 - docker
 install:
-  - docker-compose -f docker-compose.ci.yml pull hub
-  - docker-compose -f docker-compose.ci.yml pull chrome
-  - docker build --pull --no-cache --tag spike:${BRANCH_NAME}_${BUILD_NUMBER} .
+  - docker build --pull --no-cache --tag spike:${TRAVIS_BRANCH}_${TRAVIS_PULL_REQUEST} .
 script:
-  - docker-compose -f docker-compose.ci.yml up -d chrome
-  - docker-compose -f docker-compose.ci.yml run -d generator-spike
-  - docker-compose -f docker-compose.ci.yml run --rm generator-spike sh ./scripts/isTmpAppReady.sh && sh ./scripts/isSeleniumHubReady.sh
-  - docker-compose -f docker-compose.ci.yml run --rm generator-spike npm run test:integration
+  - docker-compose -f docker-compose.ci.yml pull chrome hub && docker-compose -f docker-compose.ci.yml up -d
+  - docker-compose -f docker-compose.ci.yml run --rm -w"/home/spike/generator" spike npm run test:integration
 after_script:
-  - docker-compose -f docker-compose.ci.yml down
-  - docker rmi spike:${BRANCH_NAME}_${BUILD_NUMBER}
+  - docker-compose -f docker-compose.ci.yml down && docker rmi spike:${TRAVIS_BRANCH}_${TRAVIS_PULL_REQUEST}
