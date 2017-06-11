@@ -96,7 +96,7 @@ During development you may run tests by:
 
 ```sh
 docker-compose -f docker-compose.integrationTests.yml up -d
-docker-compose -f docker-compose.integrationTests.yml run app --rm npm -w"/home/app/code" npm run test:integration
+docker-compose -f docker-compose.integrationTests.yml run --rm -w"/home/app/code" app npm run test:integration
 ```
 
 Note the development file:
