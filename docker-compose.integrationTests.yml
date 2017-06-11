@@ -37,4 +37,5 @@ services:
       INTEGRATION_TESTS_BROWSER: chrome
       SELENIUM_REMOTE_URL: http://hub:4444/wd/hub
     volumes:
-      - ./:/app
+      - ./:/home/spike/generator
+      - ./tmp:/home/spike/app

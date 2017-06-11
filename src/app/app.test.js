@@ -6,11 +6,9 @@ import App from './index';
 
 describe('spike:app', () => {
   beforeEach(async () => {
-    console.info(path.join(os.tmpdir(), 'units'));
     const runner = helpers.run(App)
       .inDir(path.join(os.tmpdir(), 'tmp'));
 
-    console.info(runner.targetDirectory);
     await runner.then();
   });
 

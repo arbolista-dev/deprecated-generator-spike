@@ -35,3 +35,5 @@ services:
     environment:
       BROWSER_ORIGIN: http://app:<%= frontendPort %>
       SELENIUM_REMOTE_URL: http://hub:4444/wd/hub
+    volumes:
+      - ./tmp:/home/app/code
