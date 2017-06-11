@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import actions from 'shared/redux/actions';
 
 export const Login = props => (
-  <div>
+  <div id="Login">
     <h3>Login</h3>
-    <button onClick={() => props.login({ username: 'Bob', password: 'password' })}>Login</button>
+    <button id="LoginButton" onClick={() => props.login({ username: 'Bob', password: 'password' })}>Login</button>
   </div>
 );
 Login.propTypes = {

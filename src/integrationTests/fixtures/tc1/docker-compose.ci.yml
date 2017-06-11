@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  hub:
+    image: selenium/hub:latest
+    ports:
+    - 4444:4444
+  chrome:
+    image: selenium/node-chrome:latest
+    depends_on:
+    - hub
+    ports:
+    - 5900:5900
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      no_proxy: localhost
+      HUB_ENV_no_proxy: localhost
+  app:
+    image: "yada:${BUILD_NUMBER}"
+    command: npm run test:integration
+    build: .
+    depends_on:
+    - hub
+    environment:
+      INTEGRATION_TESTS_ORIGIN: http://app:3000
+      INTEGRATION_TESTS_BROWSER: chrome
+      SELENIUM_REMOTE_URL: http://hub:4444/wd/hub

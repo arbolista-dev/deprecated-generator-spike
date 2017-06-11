@@ -6,6 +6,11 @@ import config from 'config';
 import webpackAssets from '../webpack-assets.json';
 import configureApp from './configureApp';
 
+if (config.get('api.fixtures')) {
+  // eslint-disable-next-line global-require
+  require('shared/api/fixtures');
+}
+
 const app = express();
 configureApp(app, webpackAssets);
 

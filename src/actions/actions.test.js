@@ -1,4 +1,6 @@
 import helpers from 'yeoman-test';
+import path from 'path';
+import os from 'os';
 import assert from 'yeoman-assert';
 import Actions from './index';
 
@@ -14,6 +16,7 @@ describe('spike:actions', () => {
   });
   beforeEach(async () => {
     await helpers.run(Actions)
+      .inDir(path.join(os.tmpdir(), 'tmp'))
       .withOptions({
         filename: 'yada'
       });

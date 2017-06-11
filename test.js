@@ -24,7 +24,7 @@ function addDirectory(testDir, exclude, regex = /\.test\.jsx?$/) {
     });
 }
 
-addDirectory(path.resolve(__dirname, 'src'), /templates/);
+addDirectory(path.resolve(__dirname, 'src'), /(templates|fixtures)/);
 
 // Run the tests.
 mocha.run((failures) => {

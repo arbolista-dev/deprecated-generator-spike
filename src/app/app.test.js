@@ -1,10 +1,15 @@
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
+import os from 'os';
+import path from 'path';
 import App from './index';
 
 describe('spike:app', () => {
   beforeEach(async () => {
-    await helpers.run(App);
+    const runner = helpers.run(App)
+      .inDir(path.join(os.tmpdir(), 'tmp'));
+
+    await runner.then();
   });
 
   it('copies the template directory', () => {

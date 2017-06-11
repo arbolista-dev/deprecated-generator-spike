@@ -78,7 +78,7 @@ module.exports = {
   target: 'web',
   entry: defineEntry,
   output: {
-    path: path.join(__dirname, '..', 'dist/assets'),
+    path: path.join(__dirname, '..', 'dist/shared/assets'),
     publicPath: '/assets/',
     filename: config.get('wds') ? '[name].bundle.js' : '[name].bundle.[hash:12].min.js'
   },

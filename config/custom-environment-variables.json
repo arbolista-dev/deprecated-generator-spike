@@ -1,0 +1,6 @@
+{
+  "integrationTests": {
+    "origin": "INTEGRATION_TESTS_ORIGIN",
+    "browser": "INTEGRATION_TESTS_BROWSER"
+  }
+}

@@ -1,4 +1,27 @@
 version: '2'
+
 services:
-  generator-spike:
+  hub:
+    image: selenium/hub:latest
+    ports:
+    - 4444:4444
+  chrome:
+    image: selenium/node-chrome:latest
+    depends_on:
+    - hub
+    ports:
+    - 5900:5900
+    environment:
+      HUB_PORT_4444_TCP_ADDR: hub
+      HUB_PORT_4444_TCP_PORT: 4444
+      no_proxy: localhost
+      HUB_ENV_no_proxy: localhost
+  spike:
+    image: "spike:${TRAVIS_BRANCH}_${TRAVIS_PULL_REQUEST}"
     build: .
+    depends_on:
+    - hub
+    environment:
+      INTEGRATION_TESTS_ORIGIN: http://spike:3000
+      INTEGRATION_TESTS_BROWSER: chrome
+      SELENIUM_REMOTE_URL: http://hub:4444/wd/hub

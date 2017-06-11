@@ -1,10 +1,12 @@
 {
   "name": "generator-spike",
-  "version": "0.0.1-alpha.6",
+  "version": "0.0.1-alpha.8",
   "description": "Generator for React apps, reducers, components, and mock api.",
   "scripts": {
     "lint": "eslint src . --fix",
     "test": "npm run lint && babel-node test.js",
+    "test:integration": "babel-node tests/integration/index.js",
+    "copy:templates": "babel-node copyTemplates.js",
     "babel": "babel",
     "build": "sh ./scripts/build.sh"
   },
@@ -16,28 +18,32 @@
   ],
   "author": "",
   "dependencies": {
-    "yeoman-generator": ">= 1.1.1"
+    "config": "^1.26.1",
+    "selenium-webdriver": "^3.4.0",
+    "yargs": "^8.0.1",
+    "yeoman-generator": "^1.1.1"
   },
   "peerDependencies": {
-    "yo": ">= 1.8.0"
+    "yo": "^1.8.0"
   },
   "devDependencies": {
-    "babel-cli": ">= 6.24.0",
-    "babel-core": ">= 6.24.0",
-    "babel-eslint": ">= 7.2.0",
-    "babel-plugin-module-resolver": ">= 2.7.0",
-    "babel-plugin-transform-object-rest-spread": ">= 6.23.0",
-    "babel-preset-env": ">= 1.4.0",
-    "chai": ">= 3.5.0",
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.0",
+    "babel-plugin-module-resolver": "^2.7.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "chai": "^3.5.0",
     "eslint": "3.19.x",
     "eslint-config-airbnb": "14.1.x",
+    "eslint-import-resolver-babel-module": "3.0.x",
     "eslint-plugin-import": "2.2.x",
     "eslint-plugin-jsx-a11y": "4.0.x",
     "eslint-plugin-react": "6.9.x",
-    "eslint-import-resolver-babel-module": "3.0.x",
-    "mocha": ">= 3.4.1",
-    "yeoman-assert": ">= 3.0.0",
-    "yeoman-test": ">= 1.6.0"
+    "fs-extra": "^3.0.1",
+    "mocha": "^3.4.1",
+    "yeoman-assert": "^3.0.0",
+    "yeoman-test": "^1.6.0"
   },
   "license": "MIT"
 }

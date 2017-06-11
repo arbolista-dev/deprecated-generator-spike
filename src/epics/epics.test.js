@@ -1,5 +1,8 @@
 import helpers from 'yeoman-test';
 import assert from 'yeoman-assert';
+import path from 'path';
+import os from 'os';
+import { assertFixtureMatch } from 'testUtils';
 import Epics from './index';
 
 describe('spike:epics', () => {
@@ -15,6 +18,7 @@ describe('spike:epics', () => {
   });
   beforeEach(async () => {
     await helpers.run(Epics)
+      .inDir(path.join(os.tmpdir(), 'tmp'))
       .withOptions({
         filename: 'yada',
         includeTests: 1
@@ -24,7 +28,7 @@ describe('spike:epics', () => {
     Epics.prototype._promptEpicsData = _promptEpicsData;
   });
 
-  it('copies the template directory', () => {
+  it('copies the template directory', async () => {
     assert.file([
       'src/shared/redux/epics/yada.js',
       'src/shared/redux/epics/yada.test.js'
@@ -61,163 +65,15 @@ import api from 'shared/api';`;
   juggle,
 ];`;
 
-    const epicsTest =
-`import { expect } from 'chai';
-import { ActionsObservable } from 'redux-observable';
-import { TestScheduler } from 'rxjs';
-import actions from 'shared/redux/actions';
-import yada from './yada';
-
-const [
-  login, logout, juggle, 
-] = yada;
-
-describe('yada', () => {
-
-  describe('login', () => {
-    it('returns token and user attributes', () => {
-      const testScheduler = new TestScheduler((actual, expected) => {
-        expect(actual).to.deep.equal(expected);
-      });
-
-      const actionPayload = {
-        // TODO
-      };
-      const action$ = new ActionsObservable(
-        testScheduler.createHotObservable('(a|)', {
-          a: actions.authentication.login(actionPayload)
-        })
-      );
-
-      const responseData = {
-        // TODO
-      };
-      const response$ = testScheduler.createColdObservable('-a|', {
-        a: responseData
-      });
-      const test$ = login(action$, undefined, (payload) => {
-        expect(payload).to.deep.equal(actionPayload);
-        return response$;
-      });
-      testScheduler.expectObservable(test$).toBe('-a|', {
-        a: actions.authentication.loginSuccess(responseData)
-      });
-      testScheduler.flush();
-    });
-
-    it('throws error on failure', () => {
-      const testScheduler = new TestScheduler((actual, expected) => {
-        expect(actual).to.deep.equal(expected);
-      });
-
-      const actionPayload = {
-        // TODO
-      };
-      const action$ = new ActionsObservable(
-        testScheduler.createHotObservable('(a|)', {
-          a: actions.authentication.login(actionPayload)
-        })
-      );
-
-      const errorMessage = undefined; // TODO
-      const response$ = testScheduler.createColdObservable('-#', null, errorMessage);
-      const test$ = loginEpic(action$, undefined, (payload) => {
-        expect(payload).to.deep.equal(actionPayload);
-        return response$;
-      });
-      testScheduler.expectObservable(test$).toBe('-(a|)', {
-        a: actions.authentication.loginError(errorMessage)
-      });
-      testScheduler.flush();
-    });
-  });
-  describe('logout', () => {
-    it('returns token and user attributes', () => {
-      const testScheduler = new TestScheduler((actual, expected) => {
-        expect(actual).to.deep.equal(expected);
-      });
-
-      const actionPayload = {
-        // TODO
-      };
-      const action$ = new ActionsObservable(
-        testScheduler.createHotObservable('(a|)', {
-          a: actions.authentication.logout(actionPayload)
-        })
-      );
-
-      const responseData = {
-        // TODO
-      };
-      const response$ = testScheduler.createColdObservable('-a|', {
-        a: responseData
-      });
-      const test$ = logout(action$, undefined, (payload) => {
-        expect(payload).to.deep.equal(actionPayload);
-        return response$;
-      });
-      testScheduler.expectObservable(test$).toBe('-a|', {
-        a: actions.authentication.logoutSuccess(responseData)
-      });
-      testScheduler.flush();
-    });
-
-    it('throws error on failure', () => {
-      const testScheduler = new TestScheduler((actual, expected) => {
-        expect(actual).to.deep.equal(expected);
-      });
-
-      const actionPayload = {
-        // TODO
-      };
-      const action$ = new ActionsObservable(
-        testScheduler.createHotObservable('(a|)', {
-          a: actions.authentication.logout(actionPayload)
-        })
-      );
-
-      const errorMessage = undefined; // TODO
-      const response$ = testScheduler.createColdObservable('-#', null, errorMessage);
-      const test$ = loginEpic(action$, undefined, (payload) => {
-        expect(payload).to.deep.equal(actionPayload);
-        return response$;
-      });
-      testScheduler.expectObservable(test$).toBe('-(a|)', {
-        a: actions.authentication.logoutError(errorMessage)
-      });
-      testScheduler.flush();
-    });
-  });
-  describe('juggle', () => {
-    
-    it('properly implements Redux Observable interface', ()=>{
-      const testScheduler = new TestScheduler((actual, expected) => {
-        expect(actual).to.deep.equal(expected);
-      });
-
-      const actionPayload = {
-        // TODO
-      };
-      const action$ = new ActionsObservable(
-        testScheduler.createHotObservable('(a|)', {
-          a: actions.user.juggle(actionPayload)
-        })
-      );
-
-      // TODO implement RXJS behavior
-      testScheduler.flush();
-    });
-  });
-  
-});`;
-
     assert.fileContent([
       ['src/shared/redux/epics/yada.js', imports],
       ['src/shared/redux/epics/yada.js', loginEpic],
       ['src/shared/redux/epics/yada.js', logoutEpic],
       ['src/shared/redux/epics/yada.js', juggleEpic],
-      ['src/shared/redux/epics/yada.js', epicsExport],
-      ['src/shared/redux/epics/yada.test.js', epicsTest]
+      ['src/shared/redux/epics/yada.js', epicsExport]
     ]);
+    await Promise.all([
+      'src/shared/redux/epics/yada.test.js'
+    ].map(filepath => assertFixtureMatch(filepath, path.resolve(__dirname, 'fixtures/tc1', filepath))));
   });
 });
