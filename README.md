@@ -57,7 +57,7 @@ We explored a few options:
 * [ignore-styles](https://www.npmjs.com/package/ignore-styles).
 * We ended up using [node-hook](https://www.npmjs.com/package/node-hook) because it should be flexible enough to handle a variety of situations.
 
-## Important Note about images
+## Important Note about importing images
 
 If you import images within a component, you should not expect it to render on the server - so there will be a discrepancy between server and client. To avoid this issue:
 
@@ -101,3 +101,5 @@ docker-compose -f docker-compose.integrationTests.yml run --rm -w"/home/app/code
 Note the development file:
 * mounts your local directory to the container so you can update the tests without having to rebuild your image.
 * Uses `-debug` [Docker Selenium images](https://github.com/SeleniumHQ/docker-selenium) so that you can use a [VCN client](http://www.davidtheexpert.com/post.php?id=5) to watch the browser Selenium is controlling.
+
+Mac OSx has a VCN client pre-instaled. To view tests, simply open vcn://127.0.0.1:5900 (or 5901 in Firefox - see docker-compose.integrationTests.yml) in Safari.
