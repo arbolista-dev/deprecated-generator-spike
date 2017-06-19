@@ -1,0 +1,21 @@
+## Change Log
+
+### 0.0.1-beta.2 (2017/06/19 05:53 +00:00)
+- [#22](https://github.com/arbolista-dev/generator-spike/pull/22) create publish script (@Arbolista)
+- [#19](https://github.com/arbolista-dev/generator-spike/pull/19) bump to beta, doc clarifications, remove code climate (@Arbolista)
+- [#18](https://github.com/arbolista-dev/generator-spike/pull/18) Integration tests (@Arbolista)
+- [#16](https://github.com/arbolista-dev/generator-spike/pull/16) create codeclimate config (@Arbolista)
+- [#15](https://github.com/arbolista-dev/generator-spike/pull/15) [WIP] Feature/subgenerators (@Arbolista)
+
+### v0.0.1-alpha.6 (2017/05/28 06:46 +00:00)
+- [#13](https://github.com/arbolista-dev/generator-spike/pull/13) fix to get default storage from cookie (@daruj)
+- [#9](https://github.com/arbolista-dev/generator-spike/pull/9) Fix/routes (@Arbolista, @daruj)
+- [#7](https://github.com/arbolista-dev/generator-spike/pull/7) Feature/i18n (@Arbolista, @daruj)
+- [#10](https://github.com/arbolista-dev/generator-spike/pull/10) new implementation for the API (@Arbolista, @daruj)
+- [#8](https://github.com/arbolista-dev/generator-spike/pull/8) fixed issues with PropTypes. implemented new dependency to handle tha… (@daruj)
+- [#6](https://github.com/arbolista-dev/generator-spike/pull/6) fix fixtures broken during tests (@Arbolista)
+- [#5](https://github.com/arbolista-dev/generator-spike/pull/5) configure travis to run test through docker (@Arbolista)
+- [#4](https://github.com/arbolista-dev/generator-spike/pull/4) Update/example tests (@Arbolista)
+- [#3](https://github.com/arbolista-dev/generator-spike/pull/3) include list of isomorphic style helpers (@Arbolista)
+- [#2](https://github.com/arbolista-dev/generator-spike/pull/2) implement build scripts (@Arbolista)
+- [#1](https://github.com/arbolista-dev/generator-spike/pull/1) refresh page on update (@Arbolista)
