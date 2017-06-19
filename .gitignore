@@ -5,3 +5,4 @@ tmp/
 .vscode/
 yarn-error.log
 npm-debug.log
+.env.changelog
