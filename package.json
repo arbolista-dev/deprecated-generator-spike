@@ -8,7 +8,8 @@
     "test:integration": "babel-node tests/integration/index.js",
     "copy:templates": "babel-node copyTemplates.js",
     "babel": "babel",
-    "build": "sh ./scripts/build.sh"
+    "build": "sh ./scripts/build.sh",
+    "changelog": "export $(cat .env.changelog | xargs) && github-changes -o arbolista-dev -r generator-spike -b develop --token ${GITHUB_TOKEN} --only-pulls --use-commit-body"
   },
   "keywords": [
     "React",
@@ -19,6 +20,7 @@
   "author": "",
   "dependencies": {
     "config": "^1.26.1",
+    "github-changes": "^1.1.0",
     "selenium-webdriver": "^3.4.0",
     "yargs": "^8.0.1",
     "yeoman-generator": "^1.1.1"
