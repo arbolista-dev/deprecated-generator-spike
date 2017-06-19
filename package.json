@@ -19,6 +19,7 @@
   "author": "",
   "dependencies": {
     "config": "^1.26.1",
+    "github-changes": "^1.1.0",
     "selenium-webdriver": "^3.4.0",
     "yargs": "^8.0.1",
     "yeoman-generator": "^1.1.1"
