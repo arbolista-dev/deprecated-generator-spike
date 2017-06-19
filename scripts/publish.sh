@@ -13,7 +13,7 @@ git checkout develop &&\
   sh scripts/build.sh &&\
   git commit -m "publish at $1" &\
   git push origin develop &&\
-  git tag -a "$1" -m "npm version $1" &&\
+  git push --tags &&\
   git push origin "$1" &&\
   git checkout master &&\
   git merge develop &&\
